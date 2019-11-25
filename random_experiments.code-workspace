@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"typescript.tsserver.log": "normal",
+		"markdown.trace": "verbose",
+		"files.associations": {
+			"vector": "cpp"
+		}
+	}
+}

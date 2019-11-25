@@ -1,0 +1,38 @@
+# emacs backup files
+*~
+
+# Misc tags/ctags files
+tags
+TAGS
+TAGS_sorted_by_file
+
+# googletest files
+source_downloads
+
+# Vim swap files
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Configuration files for Visual Studio Code
+.vscode/
+IB/.DS_Store
+Sorting/.DS_Store
+arrays/.DS_Store
+backtracking/.DS_Store
+bits/.DS_Store
+design_poblems/.DS_Store
+dp/.DS_Store
+graph/.DS_Store
+hashing/.DS_Store
+heap/.DS_Store
+leetcode/.DS_Store
+linklist/.DS_Store
+misc/.DS_Store
+reader_writer/.DS_Store
+stack/.DS_Store
+test/.DS_Store
+tree/.DS_Store
+.DS_Store
