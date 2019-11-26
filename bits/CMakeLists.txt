@@ -1,0 +1,4 @@
+PROJECT(parity)
+SET( PARITY_SOURCES 
+EPI_5.1_parity.cpp)
+ADD_EXECUTABLE( parity ${PARITY_SOURCES} )

@@ -38,9 +38,6 @@ void printArray(vector<int> arr) {
 // Driver Code
 int main() {
   std::vector<int> arr = {0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1};
-
-  int i;
-
   sort012(arr);
 
   cout << "array after segregation ";

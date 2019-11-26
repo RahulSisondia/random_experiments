@@ -1,6 +1,7 @@
 #ifndef PCH_H
 #define PCH_H
 
+#include <iostream>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -23,7 +24,7 @@ Subarray file_smallest_sub_array(vector<string> parapraph,
 
   int remaining_to_cover = keywords.size();
   for (int left = 0, right = 0; right < parapraph.size(); right++) {
-	  cout << "left :" << left << " right : " << right<< endl;
+    cout << "left :" << left << " right : " << right << endl;
     if (keywords.count(parapraph[right]) &&
         --keywords_to_cover[parapraph[right]] >= 0) {
       --remaining_to_cover;
@@ -36,17 +37,17 @@ Subarray file_smallest_sub_array(vector<string> parapraph,
         result.end = right;
       }
 
-	  if (keywords.count(parapraph[left]) &&
-		  ++keywords_to_cover[parapraph[left]] > 0) {
-		  ++remaining_to_cover;
-	  }
-	  ++left;
+      if (keywords.count(parapraph[left]) &&
+          ++keywords_to_cover[parapraph[left]] > 0) {
+        ++remaining_to_cover;
+      }
+      ++left;
     }
   }
 
   int index = result.start;
   while (index <= result.end) {
-  std::cout << parapraph[index++] << "    ";
+    std::cout << parapraph[index++] << "    ";
   }
   return result;
 }
