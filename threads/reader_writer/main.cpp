@@ -1,6 +1,6 @@
-#include"semaphore.h"
 #include "read_write_lock.h"
 #include "reader_writer.h"
+#include "semaphore.h"
 
 /*
 http://sandbox.mc.edu/~bennet/cs422b/notes/rw3_cpp.html
@@ -81,7 +81,6 @@ int main(int argc, char **argv) {
 
   // Start the reading and writing threads.  Start them alternately,
   // and collect in a list.
-  int totthreads = nreader + nwriter;
   list<thread> threads;
   for (int i = 0; i < max(nreader, nwriter); ++i) {
     if (i < nreader) threads.push_back(thread(reader, quiet, nop));
@@ -100,5 +99,3 @@ int main(int argc, char **argv) {
   monitor_stop = true;
   monthread.join();
 }
-
-

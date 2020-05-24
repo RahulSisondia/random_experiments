@@ -1,6 +1,7 @@
 #pragma once
 #include <stdlib.h>
 #include <time.h>
+
 #include <algorithm>
 #include <atomic>
 #include <chrono>
@@ -10,11 +11,11 @@
 #include <string>
 #include <thread>
 #include <utility>
+
 #include "read_write_lock.h"
 #include "semaphore.h"
 
 using namespace std;
-
 
 /*
  * This is a hack to lock cout printing by lines.  It's ugly and not too
@@ -66,7 +67,7 @@ class data_node {
   string m_name;
 
  public:
-  data_node(string n, int v = 0) : m_name(n), m_value(v) {}
+  data_node(string n, int v = 0) : m_value(v), m_name(n) {}
   int value() { return m_value; }
   void incval(int i) { m_value += i; }
   string name() { return m_name; }
@@ -278,5 +279,3 @@ void writer(bool quiet, int cnt) {
   }
   write_count += cnt % 256;
 }
-
-

@@ -7,3 +7,8 @@ PROJECT( subarray_with_given_sum )
 SET( SUBARRAY_SOURCES 
 subarray-with-given-sum.cpp)
 ADD_EXECUTABLE( subarray_with_given_sum ${SUBARRAY_SOURCES} )
+
+PROJECT( 3sum )
+SET( 3SUM_SOURCES 
+3sum.cpp)
+ADD_EXECUTABLE( 3sum ${3SUM_SOURCES} )

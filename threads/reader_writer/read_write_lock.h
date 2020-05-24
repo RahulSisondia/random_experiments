@@ -1,6 +1,7 @@
 #pragma once
-#include "semaphore.h"
 #include <atomic>
+
+#include "semaphore.h"
 
 /*
  * This class provides the reader and writer lock controls using semaphores
@@ -8,7 +9,7 @@
  */
 class readerwriter {
  public:
-  readerwriter() : m_readcount(0), m_writesem(0), m_mutex(1) {}
+  readerwriter() : m_readcount(0), m_mutex(1), m_writesem(0) {}
 
   /*
    * Operations to synchronize readers and writers.
@@ -31,9 +32,8 @@ class readerwriter {
   void leave_write() { m_writesem.signal(); }
 
  private:
-   int m_readcount;
-  //std::atomic<int> m_readcount;
+  int m_readcount;
+  // std::atomic<int> m_readcount;
   semaphore m_mutex;
   semaphore m_writesem;
 };
-

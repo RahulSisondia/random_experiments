@@ -3,28 +3,39 @@ cmake_minimum_required(VERSION 3.16)
 # Do the debug build only
 SET(CMAKE_BUILD_TYPE Debug)
 # Set the  cpp standard to  C++17
-set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++17")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-############################# Misc Problems #############################
+add_compile_options(-std=c++17 -g -Wall)
+# Enable address Sanitizer. Note it is important to set the flags to compiler and linker both. 
+# https://clang.llvm.org/docs/AddressSanitizer.html#how-to-build
+add_compile_options(-fsanitize=address -fno-omit-frame-pointer)
+string(APPEND CMAKE_EXE_LINKER_FLAGS "-fsanitize=address")
+# Set undefined behavior sanitizers 
+# https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html
+add_compile_options(-fsanitize=undefined,float-divide-by-zero,unsigned-integer-overflow,implicit-conversion,local-bounds,nullability )
+add_compile_options(-fno-sanitize-recover=null -fsanitize-trap=alignment -fno-omit-frame-pointer)
+
+# Generate the output binaries at one place in the bin directory
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+############################ Misc Problems #############################
 PROJECT( test )
 SET( TEST_SOURCES test/test.cpp )
 ADD_EXECUTABLE( test ${TEST_SOURCES} )
-##########################################################################
+#########################################################################
 
 ############################# Bits Problems #############################
 ADD_SUBDIRECTORY(bits)
 ##########################################################################
 
-############################# Array Problems #############################
+################################# Array Problems #############################
 ADD_SUBDIRECTORY(arrays)
 ##############################################################################
 
-############################# Graph Problems #############################
+################################# Graph Problems #############################
 ADD_SUBDIRECTORY(graph)
 ##############################################################################
 
-############################# Tree Problems #############################
+################################## Tree Problems #############################
 ADD_SUBDIRECTORY(tree)
 ##############################################################################
 
@@ -34,13 +45,13 @@ ADD_SUBDIRECTORY(hashing)
 
 ############################# Sorting  Problems #############################
 ADD_SUBDIRECTORY(Sorting)
-############################################################################
+#############################################################################
 
 ############################# Threading  Problems #############################
 ADD_SUBDIRECTORY(threads)
-##############################################################################
+###############################################################################
 
-############################# CPP  Problems #############################
+################################## CPP  Problems #############################
 ADD_SUBDIRECTORY(cpp)
 ##############################################################################
 
