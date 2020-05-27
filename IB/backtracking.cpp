@@ -22,14 +22,14 @@ template <typename t> void print_matrix(const vector<vector<t>> &matrix) {
 }
 
 int main() {
-  vector<int> vect{1, 2, 3};
-  Subset_cp s;
-  print_matrix(s.subsets(vect));
+  // vector<int> vect{1, 2, 3};
+  // Subset_cp s;
+  // print_matrix(s.subsets(vect));
 
-  /*Combinations c;
+  Combinations c;
   print_matrix(c.combine(3,2));
   Combinations_cp cp;
-  print_matrix(cp.combine(3,2));*/
+  print_matrix(cp.combine(3, 2));
 
   // Permute<string> p;
   // vector<string> s_vect{"A", "B", "C"};

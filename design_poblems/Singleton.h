@@ -10,9 +10,9 @@ using namespace std;
     we could just use that which is also known as Meyer's singleton. It is also
     lazy initialization.
  - We could also use the std::call_once to do the initialization.
- - References
- - https://www.modernescpp.com/index.php/thread-safe-initialization-of-a-singleton
- - https://stackoverflow.com/questions/11711920/how-to-implement-multithread-safe-singleton-in-c11-without-using-mutex/50346374#50346374
+ - References:
+ https://www.modernescpp.com/index.php/thread-safe-initialization-of-a-singleton
+ https://stackoverflow.com/questions/11711920/how-to-implement-multithread-safe-singleton-in-c11-without-using-mutex/50346374#50346374
 */
 template <class T>
 class Singleton {
@@ -43,7 +43,10 @@ template <typename T>
 Singleton<T>::~Singleton() {
   cout << "Singleton::~Singleton()\n";
 }
-
+/*
+C++11 removes the need for manual locking. Concurrent execution shall wait if a
+static local variable is already being initialized.
+*/
 template <typename T>
 Singleton<T>& Singleton<T>::get_instance() {
   cout << "Singleton::get_instance()\n";

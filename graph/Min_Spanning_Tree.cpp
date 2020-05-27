@@ -42,7 +42,7 @@ Legend:
 
 void build_graph() {
   int nodes, edges, x, y;
-  long long weight, minimumCost;
+  long long weight;
   cin >> nodes >> edges;
    adj.resize(nodes);
   for (int i = 0; i < edges; ++i) {

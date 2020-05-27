@@ -4,13 +4,13 @@
 
 #include <algorithm>
 #include <iostream>
-#include <vector>
 #include <iterator>
+#include <vector>
 
 using namespace std;
 
 class Merge_sort {
-public:
+ public:
   void merge(vector<int> &vect, vector<int> &v1, vector<int> &v2) {
     int i1 = 0, i2 = 0;
     vect.clear();
@@ -34,15 +34,12 @@ public:
   }
 
   void sort(vector<int> &vect) {
-    if (vect.size() < 2)
-      return;
+    if (vect.size() < 2) return;
     auto middle = vect.size() / 2;
     vector<int> v1, v2;
 
-    for (auto i = 0; i < middle; i++)
-      v1.push_back(vect[i]);
-    for (auto i = middle; i < vect.size(); i++)
-      v2.push_back(vect[i]);
+    for (auto i = 0; i < middle; i++) v1.push_back(vect[i]);
+    for (auto i = middle; i < vect.size(); i++) v2.push_back(vect[i]);
     sort(v1);
     sort(v2);
     merge(vect, v1, v2);
@@ -51,10 +48,9 @@ public:
 
 int main() {
   vector<int> vect{4, 2, 4, 1, 0, 10, 8};
-	Merge_sort ms;
-    ms.sort(vect);
-	std::copy(vect.begin(), vect.end(),
-              std::ostream_iterator<int>(std::cout, " "));
-    std::cout << '\n';
-
+  Merge_sort ms;
+  ms.sort(vect);
+  std::copy(vect.begin(), vect.end(),
+            std::ostream_iterator<int>(std::cout, " "));
+  std::cout << '\n';
 }
