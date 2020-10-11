@@ -11,8 +11,8 @@ bool IsValid(const vector<int>& col_placement) {
   int row_id = col_placement.size() - 1;
   for (int i = 0; i < row_id; ++i) {
     int diff = abs(col_placement[i] - col_placement[row_id]);
-	// diff == 0 signifies the same, row or column check
-	// diff == row_id -i signifies the diagnonal chec.
+    // diff == 0 signifies the same row or column check
+    // diff == row_id -i signifies the diagnonal chec.
     if (diff == 0 || diff == row_id - i) {
       // A column or diagonal constraint is violated.
       return false;

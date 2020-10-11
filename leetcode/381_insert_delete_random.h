@@ -103,7 +103,7 @@ class RandomizedCollection {
   /** Get a random element from the collection. */
   int get() {
     int num = values[rand() % values.size()];
-    cout << num << endl;
+    std::cout << num << endl;
     return num;
   }
 
@@ -120,21 +120,28 @@ void test_381() {
   rd.insert(2);
   rd.insert(5);
   rd.insert(7);
-  cout << "Possible values are 1, 2,5,7" << endl;
+  unordered_set<int> values = {1, 2, 5, 7};  //"Possible values are 1, 2,5,7"
   for (int i = 0; i < 10; i++) {
-    cout << rd.get() << endl;
+    assert(values.find(rd.get()) != values.end());
   }
   rd.insert(3);
   rd.remove(1);
   rd.remove(1);
-  cout << "Possible values are 3, 2,5,7" << endl;
+  values.erase(1);
+  values.insert(3);
+
+  // Possible values are 3,2,5,7
   for (int i = 0; i < 10; i++) {
-    cout << rd.get() << endl;
+    assert(values.find(rd.get()) != values.end());
   }
+
   rd.remove(3);
   rd.remove(1);
-  cout << "Possible values are 2,5,7" << endl;
+  values.erase(3);
+  values.erase(1);
+  // "Possible values are 2,5,7"
   for (int i = 0; i < 10; i++) {
-    cout << rd.get() << endl;
+    assert(values.find(rd.get()) != values.end());
   }
+  cout << "test_381 passed" << endl;
 }

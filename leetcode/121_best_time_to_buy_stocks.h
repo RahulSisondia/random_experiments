@@ -27,7 +27,7 @@ Explanation: In this case, no transaction is done, i.e. max profit = 0.
 #include <limits>
 #include <vector>
 
-class Solution {
+class Solution_121 {
  public:
   int maxProfit(std::vector<int>& prices) {
     int max_profit_so_far = 0;
@@ -42,7 +42,7 @@ class Solution {
 };
 
 void test_121() {
-  Solution s;
+  Solution_121 s;
   std::vector<int> prices = {7, 1, 5, 3, 6, 4};
   int ret = s.maxProfit(prices);
   if (ret != 5) std::cout << "Expected 5, Returned " << ret << std::endl;
@@ -55,4 +55,5 @@ void test_121() {
   prices = {7, 6, 5, 1};
   ret = s.maxProfit(prices);
   if (ret != 0) std::cout << "Expected 0, Returned " << ret << std::endl;
+  std::cout << "test_121 passed" << std::endl;
 }

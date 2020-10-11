@@ -16,11 +16,12 @@ slight different required in this question.
 
 https://leetcode.com/problems/summary-ranges/discuss/63284/10-line-c%2B%2B-easy-understand
 */
-
 #include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
+
+#include "../my_util.h"
 
 using namespace std;
 
@@ -44,8 +45,8 @@ vector<string> summary_range(const vector<int>& vect) {
   return res;
 }
 
-void test_summary_range() {
+void test_summary_range_228() {
   vector<string> res = summary_range({0, 1, 2, 4, 5, 7});
-  for_each(res.begin(), res.end(), [](auto& num) { cout << num << " "; });
-  cout << endl;
+  CHECK_VECTOR(summary_range({0, 1, 2, 4, 5, 7}), {"0->2", "4->5", "7"});
+  cout << "test_summary_range_228 passed" << endl;
 }

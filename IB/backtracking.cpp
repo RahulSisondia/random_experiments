@@ -26,10 +26,10 @@ int main() {
   // Subset_cp s;
   // print_matrix(s.subsets(vect));
 
-  Combinations c;
-  print_matrix(c.combine(3,2));
-  Combinations_cp cp;
-  print_matrix(cp.combine(3, 2));
+  // Combinations c;
+  // print_matrix(c.combine(3,2));
+  // Combinations_cp cp;
+  // print_matrix(cp.combine(3, 2));
 
   // Permute<string> p;
   // vector<string> s_vect{"A", "B", "C"};
@@ -38,7 +38,7 @@ int main() {
   //Palindrome_decompositon pd;
   //print_matrix(pd.decompositon("aba"));
 
-  //print_matrix(NQueens(4));
+  print_matrix(NQueens(4));
 
   return 0;
 }

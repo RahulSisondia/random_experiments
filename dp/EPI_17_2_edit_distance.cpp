@@ -45,7 +45,7 @@ int edit_distance(const string &str1, const string &str2) {
   for (int i = 1; i < str1.size(); i++)
     for (int j = 1; j < str2.size(); j++) {
       matrix[i][j] =
-          min(min(matrix[i - 1][j], matrix[i][j - 1]), matrix[i - 1][j - 1]);
+          min({matrix[i - 1][j], matrix[i][j - 1], matrix[i - 1][j - 1]});
       if (str1[i] != str2[j]) matrix[i][j] += 1;
     }
   print_matrix(matrix);
@@ -81,9 +81,9 @@ int editDistDP(string str1, string str2, const int m, const int n) {
       // If last character are different, consider all
       // possibilities and find minimum
       else
-        dp[i][j] = 1 + min(dp[i][j - 1],       // Insert
-                           dp[i - 1][j],       // Remove
-                           dp[i - 1][j - 1]);  // Replace
+        dp[i][j] = 1 + min({dp[i][j - 1],        // Insert
+                            dp[i - 1][j],        // Remove
+                            dp[i - 1][j - 1]});  // Replace
     }
   }
 

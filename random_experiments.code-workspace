@@ -99,7 +99,8 @@
 			"utility": "cpp",
 			"valarray": "cpp",
 			"variant": "cpp",
-			"*.ipp": "cpp"
+			"*.ipp": "cpp",
+			"__memory": "cpp"
 		},
 		"C_Cpp.clang_format_fallbackStyle": "Google"
 	}

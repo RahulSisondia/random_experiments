@@ -33,7 +33,7 @@ Explanation: In this case, no transaction is done, i.e. max profit = 0.
 #include <limits>
 #include <vector>
 
-class Solution {
+class Solution_123 {
  public:
   /*
    Compute during forward and backward iterations.
@@ -73,7 +73,7 @@ class Solution {
 */
 
 void test_123() {
-  Solution s;
+  Solution_123 s;
   std::vector<int> prices = {7, 1, 5, 3, 6, 4};
   int ret = s.maxProfit(prices);
   if (ret != 7) std::cout << "Expected 7, Returned " << ret << std::endl;
@@ -89,4 +89,5 @@ void test_123() {
   prices = {3, 3, 5, 0, 0, 3, 1, 4};
   ret = s.maxProfit(prices);
   if (ret != 8) std::cout << "Expected 8, Returned " << ret << std::endl;
+  std::cout << "test_123 passed" << std::endl;
 }

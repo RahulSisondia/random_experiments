@@ -11,7 +11,7 @@ same time (ie, you must sell the stock before you buy again).”
 #include <limits>
 #include <vector>
 
-class Solution {
+class Solution_122 {
  public:
   int maxProfit(std::vector<int>& prices) {
     int max_profit = 0;
@@ -24,7 +24,7 @@ class Solution {
 };
 
 void test_122() {
-  Solution s;
+  Solution_122 s;
 
   std::vector<int> prices = {7, 1, 5, 3, 6, 4};
   int ret = s.maxProfit(prices);
@@ -45,4 +45,5 @@ void test_122() {
   prices = {3, 3, 5, 0, 0, 3, 1, 4};
   ret = s.maxProfit(prices);
   if (ret != 8) std::cout << "Expected 8, Returned " << ret << std::endl;
+  std::cout << "test_122 passed" << std::endl;
 }
