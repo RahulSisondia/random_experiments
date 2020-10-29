@@ -1,9 +1,5 @@
-// EPI_19_Graph_DFS.cpp : Defines the entry point for the console application.
-//
 
 #include <iostream>
-#include <unordered_map>
-#include <unordered_set>
 
 void getTwoElements(int arr[], int n, int *x, int *y) {
   int xor1;       /* Will hold xor of all elements and numbers from 1 to n */
@@ -44,9 +40,9 @@ void getTwoElements(int arr[], int n, int *x, int *y) {
 }
 
 int main() {
-	int arr[4] = { 1, 2,2,4 };
-	int x, y;
-	getTwoElements(arr, 4, &x, &y);
-	std::cout << x << "  " << y<<"\n";
-	return 0;
+  int arr[4] = {1, 2, 2, 4};
+  int x, y;
+  getTwoElements(arr, 4, &x, &y);
+  std::cout << x << "  " << y << "\n";
+  return 0;
 }

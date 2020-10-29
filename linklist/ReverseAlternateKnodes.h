@@ -51,14 +51,18 @@ void test_alternate_kth_node() {
   struct node* head = NULL;
 
   // create a list 1->2->3->4->5...... ->20
-  for (int i = 20; i > 0; i--) push(head, i);
+  for (int i = 20; i > 0; i--) head_push(head, i);
 
-  printf("\n Given linked list \n");
-  printList(head);
+  // printf("\n Given linked list \n");
+  // print_list(head);
   head = kAltReverse(head, 3);
 
-  printf("\n Modified Linked list \n");
-  printList(head);
+  // printf("\n Modified Linked list \n");
+  // print_list(head);
+  CHECK(print_list_to_string(head),
+        string("3->2->1->4->5->6->9->8->7->10->11->12-"
+               ">15->14->13->16->17->18->20->19"));
+  PRINT_MSG;
 }
 
 #endif

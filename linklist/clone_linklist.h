@@ -14,11 +14,11 @@ class Node {
 };
 
 // linked list class
-class LinkedList {
+class Linked_list {
  public:
   Node *head;  // Linked list head reference
 
-  LinkedList(Node *head) { this->head = head; }
+  Linked_list(Node *head) { this->head = head; }
 
   // push method to put data always at
   // the head in the linked list.
@@ -44,7 +44,7 @@ class LinkedList {
   // Actual clone method which returns
   // head reference of cloned linked
   // list.
-  LinkedList *clone() {
+  Linked_list *clone() {
     // Initialize two references,
     // one with original list's head.
     Node *origCurr = head;
@@ -81,13 +81,13 @@ class LinkedList {
 
     // return the head reference of
     // the clone list.
-    return new LinkedList(mymap[head]);
+    return new Linked_list(mymap[head]);
   }
 };
 
 void test_clone_llist() {
   // Pushing data in the linked list.
-  LinkedList *mylist = new LinkedList(new Node(5));
+  Linked_list *mylist = new Linked_list(new Node(5));
   mylist->push(4);
   mylist->push(3);
   mylist->push(2);
@@ -107,7 +107,7 @@ void test_clone_llist() {
 
   // Making a clone of the original
   // linked list.
-  LinkedList *clone = mylist->clone();
+  Linked_list *clone = mylist->clone();
 
   // Print the original and cloned
   // linked list.

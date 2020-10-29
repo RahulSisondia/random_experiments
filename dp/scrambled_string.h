@@ -102,8 +102,8 @@ Output 2:
     0
 
 */
-void scrambled_strings() {
+void test_scrambled_strings() {
   CHECK(scrambled_strings_top_down("great", "rgtae"), true);
   CHECK(scrambled_strings_top_down("great", "egtar"), false);
-  PASSED_MSG;
+  PRINT_MSG;
 }

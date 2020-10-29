@@ -22,5 +22,5 @@ void kth_grammar_779() {
   CHECK(s.kthGrammar(1, 1), 0);
   CHECK(s.kthGrammar(3, 4), 0);
   CHECK(s.kthGrammar(30, pow(2, 29)), 1);
-  PASSED_MSG;
+  PRINT_MSG;
 }

@@ -1,40 +1,75 @@
-// LIS.cpp : This file contains the 'main' function. Program execution begins
-// and ends there.
-//
-
-#include <algorithm>
-#include <climits>
-#include <iostream>
-#include <numeric>
-#include <vector>
+#include "../my_util.h"
+#include <limits.h>
 using namespace std;
 
 /*
-  I was trying to implement algorithm take 3 mentioned at
   https://courses.engr.illinois.edu/cs473/sp2011/Lectures/08_handout.pdf
-  but it did not workout so far.
+  https://www.techiedelight.com/longest-increasing-subsequence-using-dynamic-programming/
 */
+int lis_rec(vector<int> v, int i, int prev)
+{
+	// Base case: nothing is remaining
+	if (i == v.size())
+		return 0;
 
-int LIS_ending(vector<int> v, int& max) {
-  if (v.size() == 0) {
-    return 0;
-  }
-  int m = 1;
-  for (int i = 0; i < v.size() - 1; i++) {
-    if (v[i] < v.back()) {
-      m = std::max(m, 1 + LIS_ending({v.begin(), v.begin() + i}, max));
-    }
-  }
-  if (m > max) max = m;
-  return m;
+	// case 1: exclude the current element and process the
+	// remaining elements
+	int excl = lis_rec(v, i + 1, prev);
+
+	// case 2: include the current element if it is greater
+	// than previous element in LIS
+	int incl = 0;
+	if (v[i] > prev)
+		incl = 1 + lis_rec(v, i + 1, v[i]);
+
+	// return maximum of above two choices
+	return max(incl, excl);
+}
+
+int lis_top_down_util(vector<int> v, int i, int prev,
+                      map<pair<int, int>, int>& dp) {
+  // Base case: nothing is remaining
+  if (i == v.size()) return 0;
+
+  if (dp.find({i, prev}) != dp.end()) return dp[{i, prev}];
+  // case 1: exclude the current element and process the
+  // remaining elements
+  int excl = lis_top_down_util(v, i + 1, prev, dp);
+
+  // case 2: include the current element if it is greater
+  // than previous element in LIS
+  int incl = 0;
+  if (v[i] > prev) incl = 1 + lis_top_down_util(v, i + 1, v[i], dp);
+
+  // return maximum of above two choices
+  int result = max(incl, excl);
+  pair<int, int> p;
+  dp.emplace(p, result);
+  return result;
+}
+/*
+- I misunderstood thinking that only one variable is changing but there are two
+  variables getting changed i.e. index and prev . Therefore, we need 2D matrix.
+- But, we can't use 2D. It leads to complicated code and out of bound issues.
+  therefore, we choose a map that has key as pair (index, prev).
+- Using bottom up approach it is possible to solve this problem in 1D array but
+  it is difficult to do so in memoization. Seems it is not possible to do this
+  with 1D array .
+  https://stackoverflow.com/questions/42350612/1d-memoization-in-recursive-solution-of-longest-increasing-subsequence
+*/
+int lis_top_down(vector<int> v, int i, int prev) {
+  map<pair<int, int>, int> dp;
+  return lis_top_down_util(v, 0, prev, dp);
 }
 
 // main function
 int main() {
-  // int arr[] = { 0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15 };
-  vector<int> v = {10, 22, 9, 33};
-  int max = INT_MIN;
-  int m = LIS_ending(v, max);
-  cout << "Length of LIS is " << LIS_ending(v, max);
+  CHECK(lis_rec({10, 22, 9, 33}, 0, INT_MIN), 3);
+  CHECK(lis_rec({ 0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15 }, 0, INT_MIN), 6);
+  CHECK(lis_top_down({0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15}, 0,
+                     INT_MIN),
+        6);
+  CHECK(lis_top_down({10, 22, 9, 33}, 0, INT_MIN), 3);
+  PRINT_MSG;
   return 0;
 }

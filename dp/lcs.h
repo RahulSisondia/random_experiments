@@ -165,5 +165,5 @@ void longest_common_sub_string() {
   CHECK(longest_common_sub_string_bottom_up(s1, s2, s1.length(), s2.length()),
         6);
   CHECK(count_lcs_rec(s1, s2, s1.length(), s2.length()), 7);
-  PASSED_MSG;
+  PRINT_MSG;
 }

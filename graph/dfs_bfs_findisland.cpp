@@ -1,12 +1,10 @@
-// FineIsland.cpp : Defines the entry point for the console application.
-// Program to count islands in boolean 2D matrix
-#include <stdbool.h>
-#include <stdio.h>
-#include <string.h>
+// FineIsland.cpp : https://www.geeksforgeeks.org/find-number-of-islands/
+// Implemented DFS and BFS iterative and recursive versions.
+// Count number of disconnected graphs
+// Also demonstrate to traverse in the maze.
 
 #include <array>
 #include <iostream>
-#include <limits>
 #include <queue>
 #include <string>
 #include <vector>
@@ -28,8 +26,8 @@ void DFS_util(const vector<vector<int>> M, int row, int col,
               vector<vector<bool>> &visited, int &count) {
   // These arrays are used to get row and column numbers of 8 neighbours
   // of a given cell
-  static int rowNbr[] = {-1, -1, -1, 0, 0, 1, 1, 1};
-  static int colNbr[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+  constexpr static int rowNbr[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+  constexpr static int colNbr[] = {-1, 0, 1, -1, 1, -1, 0, 1};
 
   // Mark this cell as visited
   visited[row][col] = true;
@@ -45,8 +43,8 @@ void DFS_util_stk(const vector<vector<int>> M, int row, int col,
                   vector<vector<bool>> &visited, int &count) {
   // These arrays are used to get row and column numbers of 8 neighbours
   // of a given cell
-  static int rowNbr[] = {-1, -1, -1, 0, 0, 1, 1, 1};
-  static int colNbr[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+  constexpr static int rowNbr[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+  constexpr static int colNbr[] = {-1, 0, 1, -1, 1, -1, 0, 1};
 
   vector<std::pair<int, int>> stk;
   stk.emplace_back(row, col);
@@ -72,8 +70,8 @@ void BFS_util_que(const vector<vector<int>> M, int row, int col,
                   vector<vector<bool>> &visited, int &count) {
   // These arrays are used to get row and column numbers of 8 neighbours
   // of a given cell
-  static int rowNbr[] = {-1, -1, -1, 0, 0, 1, 1, 1};
-  static int colNbr[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+  constexpr static int rowNbr[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+  constexpr static int colNbr[] = {-1, 0, 1, -1, 1, -1, 0, 1};
 
   queue<std::pair<int, int>> q;
   q.emplace(row, col);

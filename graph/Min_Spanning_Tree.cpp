@@ -18,23 +18,23 @@ Legend:
 5 - edges
 1  2  7  ===>  edge from 1 to 2 with weight 7.
 
-			9
+            9
       +--------------+
       |              |
    7  +    6      8  +
 1 --- 2 ----- 3 -----4
-+					 +
-|		6			 |
++					           +
+|		    6	           |
 +--------------------+
 
     ||  Min Spanning Tree (19)
-  	V
+    V
 
 
    7      6
-1 --- 2 ----- 3		 4
-+					 +
-|		6			 |
+1 --- 2 ----- 3		   4
++					          +
+|		6			          |
 +--------------------+
 
 
@@ -44,7 +44,7 @@ void build_graph() {
   int nodes, edges, x, y;
   long long weight;
   cin >> nodes >> edges;
-   adj.resize(nodes);
+  adj.resize(nodes);
   for (int i = 0; i < edges; ++i) {
     cin >> x >> y >> weight;
     adj[x].push_back(make_pair(weight, y));

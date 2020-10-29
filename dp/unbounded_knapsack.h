@@ -158,5 +158,5 @@ void min_coin_change_required() {
   vector<int> coins{1, 2, 3, 5};
   CHECK(min_coin_change_required_rec(coins, 7, coins.size() - 1), 2);
   CHECK(min_coin_change_required_bottom_up(coins, 7, coins.size()), 2);
-  PASSED_MSG;
+  PRINT_MSG;
 }

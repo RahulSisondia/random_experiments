@@ -1,12 +1,16 @@
 #pragma once
 #include <algorithm>
+#include <cstdlib>
+#include <deque>
 #include <iostream>
 #include <map>
 #include <memory>
 #include <numeric>
 #include <sstream>
+#include <stack>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 using namespace std;
@@ -61,4 +65,4 @@ void CHECK_VECTOR(const vector<t>& vect, const vector<t>& result) {
   });
 }
 
-#define PASSED_MSG cout << __func__ << " tests passed." << endl
+#define PRINT_MSG cout << __func__ << " tests passed." << endl

@@ -66,11 +66,7 @@ int numOfCombinations(int score, const vector<int>& play_score) {
   return matrix.back().back();
 }
 
-//int main() {
-//  cout << "Total combinations : " << numOfCombinations(12, {2, 3, 7});
-//  return 1;
-//}
-
-
-
-
+int main() {
+  cout << "Total combinations : " << numOfCombinations(12, {2, 3, 7});
+  return 1;
+}

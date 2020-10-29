@@ -20,3 +20,16 @@ SET( mcm_SOURCES
 matrix_chain_multiplication.cpp
 )
 ADD_EXECUTABLE(mcm ${mcm_SOURCES} )
+
+PROJECT( lis )
+SET( lis_SOURCES 
+lis.cpp
+)
+ADD_EXECUTABLE(lis ${lis_SOURCES} )
+
+
+PROJECT( misc )
+SET( misc_SOURCES 
+misc_main.cpp
+)
+ADD_EXECUTABLE(misc ${misc_SOURCES} )

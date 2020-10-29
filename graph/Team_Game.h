@@ -16,7 +16,10 @@ using namespace std;
 struct Match_result {
   string winning_team, losing_team;
 };
-
+/*
+  We can represent the graph using this data structure since we know there will
+  be no duplicate  node.
+*/
 unordered_map<string, unordered_set<string>>
 build_graph(const vector<Match_result> &matches) {
   unordered_map<string, unordered_set<string>> graph;
@@ -28,10 +31,10 @@ build_graph(const vector<Match_result> &matches) {
 
 bool is_reachable(const unordered_map<string, unordered_set<string>> &graph,
                   const string &curr, const string &dest,
-                  unordered_set<string> *visited_ptr) {
-  unordered_set<string> &visited = *visited_ptr;
+                  unordered_set<string> &visited) {
   if (curr == dest)
     return true;
+  // We have already visisted node or it does not exist in the graph.
   else if (visited.find(curr) != visited.end() ||
            graph.find(curr) == graph.end()) {
     return false;
@@ -40,15 +43,15 @@ bool is_reachable(const unordered_map<string, unordered_set<string>> &graph,
   // Fetch the neighors
   const auto &team_list = graph.at(curr);
   return any_of(begin(team_list), end(team_list), [&](const string &team) {
-    return is_reachable(graph, team, dest, visited_ptr);
+    return is_reachable(graph, team, dest, visited);
   });
 }
 
 bool can_team_A_beat_team_B(const vector<Match_result> &matches,
                             const string &team_a, const string &team_b) {
-  auto visited = make_unique<unordered_set<string>>();
-  if (is_reachable(build_graph(matches), team_a, team_b, visited.get())) {
-    for (auto itr = visited->begin(); itr != visited->end(); itr++) {
+  unordered_set<string> visited;
+  if (is_reachable(build_graph(matches), team_a, team_b, visited)) {
+    for (auto itr = visited.begin(); itr != visited.end(); itr++) {
       cout << *itr << " ";
     }
     cout << team_b << endl;
@@ -56,4 +59,15 @@ bool can_team_A_beat_team_B(const vector<Match_result> &matches,
   }
   cout << "not exists" << endl;
   return false;
+}
+
+void test_team_game() {
+  vector<Match_result> mr{
+      {"A", "B"}, {"B", "C"}, {"C", "A"}, {"D", "E"}, {"A", "D"}};
+  cout << can_team_A_beat_team_B(mr, "C", "B") << endl;
+  cout << can_team_A_beat_team_B(mr, "B", "A") << endl;
+  cout << can_team_A_beat_team_B(mr, "A", "D") << endl;
+  cout << can_team_A_beat_team_B(mr, "A", "E") << endl;
+  cout << can_team_A_beat_team_B(mr, "B", "D") << endl;
+  cout << can_team_A_beat_team_B(mr, "E", "C") << endl;
 }

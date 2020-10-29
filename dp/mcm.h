@@ -225,7 +225,7 @@ int min_palindromic_partitioning_memo_opt(string str, int i, int j) {
   return min_palindromic_partitioning_mem_util_opt(str, i, j, dp);
 }
 
-void palindromic_partitioning() {
+void test_palindromic_partitioning() {
   string str("ababbbabbababa");  // abab| bb | abba | baba
   CHECK(min_palindromic_partitioning_rec(str, 0, str.size() - 1), 3);
   CHECK(min_palindromic_partitioning_memo(str, 0, str.size() - 1), 3);
@@ -265,5 +265,5 @@ void palindromic_partitioning() {
   CHECK(min_palindromic_partitioning_memo(str, 0, str.size() - 1), 0);
   CHECK(min_palindromic_partitioning_memo_opt(str, 0, str.size() - 1), 0);
 
-  PASSED_MSG;
+  PRINT_MSG;
 }

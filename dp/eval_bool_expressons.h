@@ -127,7 +127,7 @@ int eval_bool_expressions_top_down(string str, int i, int j, bool to_eval) {
   return eval_bool_expressions_top_down_util(str, i, j, to_eval, dp);
 }
 
-void evaluate_bool_expressions() {
+void test_evaluate_bool_expressions() {
   string str;
   str = "T^F&T";
 
@@ -142,5 +142,5 @@ void evaluate_bool_expressions() {
   str = "T&T";
   CHECK(eval_bool_expressions_rec(str, 0, str.size() - 1, true), 1);
   CHECK(eval_bool_expressions_top_down(str, 0, str.size() - 1, true), 1);
-  PASSED_MSG;
+  PRINT_MSG;
 }

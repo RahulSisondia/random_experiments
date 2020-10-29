@@ -1,26 +1,5 @@
 #pragma once
-
-#include <algorithm>
-#include <iostream>
-#include <stack>
-#include <string>
-#include <vector>
-
-namespace dl {
-
-using namespace std;
-
-struct Vertex {
-  enum class Color { White, Gray, Black } color = Color::White;
-  size_t indegree = 0;
-  string node;
-  vector<Vertex*> edges;
-  Vertex(string n) : node(n) {}
-  void add_edge(Vertex* v) {
-    edges.emplace_back(v);
-    ++v->indegree;
-  }
-};
+#include "graph_util.h"
 
 vector<Vertex> build_graph(vector<Vertex> v) {
   /*
@@ -35,28 +14,21 @@ vector<Vertex> build_graph(vector<Vertex> v) {
   // v[3].add_edge(&v[1]);  // Cycle detection test
   v[4].add_edge(&v[5]);
   v[5].add_edge(&v[1]);
-  v[1].add_edge(&v[4]);    // Cycle detection test
+  v[1].add_edge(&v[4]);  // Cycle detection test
   return v;
 }
 
-void print_graph(const vector<Vertex>& G) {
-  for (auto v : G) {
-    for (auto edge : v.edges) {
-      cout << v.node << "  ---> " << edge->node << endl;
-    }
-  }
-}
 /*
-This is iterative DFS program based on the following approach.
-It does the two things -
-1. it detects the cycle
-2. Prints the nodes in the topological order as well.
+  This is iterative DFS program based on the following approach.
+  It does the two things -
+  1. it detects the cycle
+  2. Prints the nodes in the topological order as well.
 
-https://stackoverflow.com/questions/46506077/how-to-detect-cycles-in-a-directed-graph-using-the-iterative-version-of-dfs
-One option is to push each node twice to the stack along the information if
-you're entering or exiting it. When you pop a node from stack you check if
-you're entering or exiting. In case of enter color it gray, push it to stack
-again and advance to neighbors. In case of exit just color it black.
+  https://stackoverflow.com/questions/46506077/how-to-detect-cycles-in-a-directed-graph-using-the-iterative-version-of-dfs
+  One option is to push each node twice to the stack along the information if
+  you're entering or exiting it. When you pop a node from stack you check if
+  you're entering or exiting. In case of enter color it gray, push it to stack
+  again and advance to neighbors. In case of exit just color it black.
 */
 
 bool isdeadlock(vector<Vertex> graph) {
@@ -65,7 +37,7 @@ bool isdeadlock(vector<Vertex> graph) {
   // Notice, that we have taken the vertex pointer.
   // Since, we need to update the vertices color.
   stack<pair<Vertex*, state>> s;
-  //Vertex& v = graph.front();
+  // Vertex& v = graph.front();
   vector<string> topological;
   for (auto& c : graph) {
     if (c.indegree == 0) s.emplace(&c, ENTER);
@@ -98,4 +70,11 @@ bool isdeadlock(vector<Vertex> graph) {
   return false;
 }
 
-}  // namespace dl
+
+void test_deadlock_detection() {
+  Vertex a("A"), b("B"), c("C"), d("D"), e("E"), f("F");
+  vector<Vertex> vs{a, b, c, d, e, f};
+  auto g = build_graph(vs);
+  print_graph(g);
+  cout << isdeadlock(g);
+}
