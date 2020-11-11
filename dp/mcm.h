@@ -9,7 +9,7 @@
 */
 int mcm_rec(vector<int> dims, int i, int j) {
   // i cannot be greater than j of course.
-  // if i == j means same dimension which invalid case as well.
+  // if i == j means only 1 dimension which invalid case as well.
   if (i >= j) return 0;
   int res = numeric_limits<int>::max();
   for (int k = i; k < j; k++) {
@@ -53,13 +53,16 @@ int mcm_top_down_util(vector<int> dims, int i, int j, vector<vector<int>>& dp,
     pmat[i][j] = k;
 
     // Uncomment to see matrices
-    // if (i == 1 && j == 4) {
-    //   print_matrix(pmat);
-    //   print_matrix(dp);
-    // }
+    /* if (i == 1 && j == 4) {
+      PRINT(pmat);
+      PRINT(dp);
+    } */
   }
-  return res;
+  return res;       
 }
+/*
+
+*/
 void print_parathesis(vector<int>& dims, vector<vector<int>>& pmat, int i,
                       int j) {
   if (i > j)
@@ -87,6 +90,7 @@ int mcm_top_down(vector<int> dims, int i, int j) {
 }
 
 /*
+TODO
   https://youtu.be/_WncuhSJZyA
   https://www.techiedelight.com/matrix-chain-multiplication/
 */

@@ -36,18 +36,18 @@ int knapsack_rec_loop(vector<int> value, vector<int> weight, int W, int n) {
 }
 
 int knapsack_top_down_util(vector<int> &value, vector<int> &weight, int W,
-                           int n, vector<vector<int>> &temp) {
+                           int n, vector<vector<int>> &dp) {
   if (n == 0 || W == 0) return 0;
 
-  if (temp[n][W] != -1) return temp[n][W];
+  if (dp[n][W] != -1) return dp[n][W];
   if (weight[n] <= W) {
-    temp[n][W] =
+    dp[n][W] =
         std::max(value[n] + knapsack_rec(value, weight, W - weight[n], n - 1),
                  knapsack_rec(value, weight, W, n - 1));
   } else {
-    temp[n][W] = knapsack_rec(value, weight, W, n - 1);
+    dp[n][W] = knapsack_rec(value, weight, W, n - 1);
   }
-  return temp[n][W];
+  return dp[n][W];
 }
 
 /*

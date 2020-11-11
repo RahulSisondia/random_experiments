@@ -47,6 +47,6 @@ vector<string> summary_range(const vector<int>& vect) {
 
 void test_summary_range_228() {
   vector<string> res = summary_range({0, 1, 2, 4, 5, 7});
-  CHECK_VECTOR(summary_range({0, 1, 2, 4, 5, 7}), {"0->2", "4->5", "7"});
+  CHECK(summary_range({0, 1, 2, 4, 5, 7}), {"0->2", "4->5", "7"});
   cout << "test_summary_range_228 passed" << endl;
 }

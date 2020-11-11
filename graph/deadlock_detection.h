@@ -39,9 +39,12 @@ bool isdeadlock(vector<Vertex> graph) {
   stack<pair<Vertex*, state>> s;
   // Vertex& v = graph.front();
   vector<string> topological;
-  for (auto& c : graph) {
-    if (c.indegree == 0) s.emplace(&c, ENTER);
-  }
+  /*
+   We could add all nodes with indegree 0 as well.
+   for (auto& c : graph) {
+     if (c.indegree == 0) s.emplace(&c, ENTER);
+   }
+   */
 
   while (!s.empty()) {
     auto v = s.top();
@@ -69,7 +72,6 @@ bool isdeadlock(vector<Vertex> graph) {
                 [](auto a) { cout << a << endl; });
   return false;
 }
-
 
 void test_deadlock_detection() {
   Vertex a("A"), b("B"), c("C"), d("D"), e("E"), f("F");

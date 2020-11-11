@@ -67,7 +67,7 @@ int count_lcs_bottom_up(string s1, string s2, int l1, int l2) {
 /*
  https://www.geeksforgeeks.org/printing-longest-common-subsequence/
   - We could use the matrix got using top_down.
-  - Don't try to play or simplify the code wrt indices. Keep it simple.
+  - Don't try to play or simplify the code wrt indices. Keep it simple
 */
 string print_lcs(string s1, string s2, int l1, int l2) {
   vector<vector<int>> matrix(l1 + 1, vector<int>(l2 + 1, -1));

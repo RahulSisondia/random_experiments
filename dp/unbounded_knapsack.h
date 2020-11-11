@@ -84,20 +84,20 @@ int count_coin_change_rec(vector<int> coins, int target, int n) {
 
 */
 int count_coin_change_top_down_util(vector<int> coins, int target, int n,
-                                    vector<vector<int>>& matrix) {
+                                    vector<vector<int>>& dp) {
   if (target == 0) return 1;
   if (n < 0 || target < 0) return 0;
   int ret;
-  if (matrix[n][target] != -1) return matrix[n][target];
+  if (dp[n][target] != -1) return dp[n][target];
   if (coins[n] <= target) {
     // If coin is included that means it may be included again. i.e. n
     // Otherwise, it will not be included i.e. n-1
-    ret = count_coin_change_top_down_util(coins, target - coins[n], n, matrix) +
-          count_coin_change_top_down_util(coins, target, n - 1, matrix);
+    ret = count_coin_change_top_down_util(coins, target - coins[n], n, dp) +
+          count_coin_change_top_down_util(coins, target, n - 1, dp);
   } else {
-    ret = count_coin_change_top_down_util(coins, target, n - 1, matrix);
+    ret = count_coin_change_top_down_util(coins, target, n - 1, dp);
   }
-  matrix[n][target] = ret;
+  dp[n][target] = ret;
   return ret;
 }
 
@@ -158,5 +158,37 @@ void min_coin_change_required() {
   vector<int> coins{1, 2, 3, 5};
   CHECK(min_coin_change_required_rec(coins, 7, coins.size() - 1), 2);
   CHECK(min_coin_change_required_bottom_up(coins, 7, coins.size()), 2);
+  PRINT_MSG;
+}
+
+/*
+ https://www.geeksforgeeks.org/cutting-a-rod-dp-13/
+ It is very similar to unbounded knapsack problem.
+Once we make the first cut, we may consider
+the two pieces as independent instances of the rod-cutting problem. The overall
+optimal solution incorporates optimal solutions to the two related subproblems,
+maximizing revenue from each of those two pieces. We say that the rod-cutting
+problem exhibits optimal substructure: optimal solutions to a problem
+incorporate optimal solutions to related subproblems, which we may solve
+independently
+*/
+int cutting_rod(vector<int> price, int length, int cut) {
+  if (length <= 0 || cut <= 0) {
+    return 0;
+  }
+  int res;
+  if (cut <= length)
+    res = max(price[cut - 1] + cutting_rod(price, length - cut, cut),
+              cutting_rod(price, length, cut - 1));
+  else
+    res = cutting_rod(price, length, cut - 1);
+  return res;
+}
+
+void test_cutting_rod() {
+  vector<int> price = {1, 5, 8, 9, 10, 17, 17, 20};
+  CHECK(cutting_rod(price, price.size(), price.size()), 22);
+  price = {1, 5, 8};
+  CHECK(cutting_rod(price, price.size(), price.size()), 8);
   PRINT_MSG;
 }

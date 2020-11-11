@@ -17,7 +17,8 @@ struct Match_result {
   string winning_team, losing_team;
 };
 /*
-  We can represent the graph using this data structure since we know there will
+  We are given graph in the form of edge list. Convert that into adjacency list
+  We can represent the graph using this hashmap since we know there will
   be no duplicate  node.
 */
 unordered_map<string, unordered_set<string>>
@@ -39,6 +40,7 @@ bool is_reachable(const unordered_map<string, unordered_set<string>> &graph,
            graph.find(curr) == graph.end()) {
     return false;
   }
+  // We could store the path in a result vector and add the node here.
   visited.emplace(curr);
   // Fetch the neighors
   const auto &team_list = graph.at(curr);

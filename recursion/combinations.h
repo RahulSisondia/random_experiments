@@ -1,11 +1,11 @@
-#include <vector>
 #include <algorithm>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 class Combinations {
-public:
+ public:
   void combineHelper(vector<int> &current, int n, int k,
                      vector<vector<int>> &ans) {
     if (k == 0) {
@@ -14,8 +14,7 @@ public:
       ans.push_back(newEntry);
       return;
     }
-    if (n == 0 || n < k)
-      return;
+    if (n == 0 || n < k) return;
     // We have 2 options here. We can either include n or not.
     // Option 1 : Do not include n.
     combineHelper(current, n - 1, k, ans);
@@ -36,14 +35,7 @@ public:
 };
 
 class Combinations_cp {
-public:
-  template <typename t> void print(const vector<t> vect) {
-    cout << "Array : ";
-    for (int i = 0; i < vect.size(); i++)
-      cout << vect[i] << " ";
-    cout << endl;
-  }
-
+ public:
   void combine_util(int n, int k, int index, vector<vector<int>> &result,
                     vector<int> &current) {
     if (current.size() == k) {
@@ -55,12 +47,10 @@ public:
     // number is exluded.
     for (auto i = index; i <= n; ++i) {
       current.push_back(i);
-      cout << "pushed index : " << i<<endl;
-      print(current);
+      // cout << "pushed index : " << i << endl;
       combine_util(n, k, i + 1, result, current);
       current.pop_back();
-      cout << "popped index : " << i<<endl;
-      print(current);
+      // cout << "popped index : " << i << endl;
     }
   }
 
@@ -71,3 +61,11 @@ public:
     return result;
   }
 };
+
+void test_combinations() {
+  Combinations c;
+  CHECK(c.combine(3, 2), {{1, 2}, {1, 3}, {2, 3}});
+  Combinations_cp cp;
+  CHECK(cp.combine(3, 2), {{1, 2}, {1, 3}, {2, 3}});
+  PRINT_MSG;
+}

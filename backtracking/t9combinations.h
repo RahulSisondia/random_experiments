@@ -1,10 +1,4 @@
-// t9combinations.cpp : Defines the entry point for the console application.
-//
-
-#include <iostream>
-#include <string>
-#include <vector>
-
+#include "../my_util.h"
 using namespace std;
 
 void generate(vector<string> trans, string digits, int deep, string& res,
@@ -31,11 +25,10 @@ vector<string> combinations(string digit) {
   generate(trans, digit, deep, result, set);
   return set;
 }
-int main() {
-  vector<string> result = combinations("23");
-  for (auto i : result) {
-    cout << i << "\n";
-  }
 
-  return 0;
+void test_t9_combinations() {
+  CHECK(combinations("23"),
+        {"ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"});
+
+  PRINT_MSG;
 }

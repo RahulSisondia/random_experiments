@@ -32,4 +32,4 @@ PROJECT( misc )
 SET( misc_SOURCES 
 misc_main.cpp
 )
-ADD_EXECUTABLE(misc ${misc_SOURCES} )
+ADD_EXECUTABLE(dp_misc ${misc_SOURCES} )

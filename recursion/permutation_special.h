@@ -1,5 +1,6 @@
 #include "../my_util.h"
 
+// https://practice.geeksforgeeks.org/problems/permutation-with-spaces/0
 void permutation_with_spaces_util(string in, string op,
                                   vector<string>& result) {
   if (in.empty()) {
@@ -7,14 +8,16 @@ void permutation_with_spaces_util(string in, string op,
     return;
   }
 
-  string op1(op);
-  op1.push_back('_');
+  string op1(op);      // exclude space
+  op1.push_back('_');  // Include with space
   op1.push_back(in[0]);
 
   string op2(op);
   op2.push_back(in[0]);
 
-  permutation_with_spaces_util(in.substr(1), op1, result);
+  // Notice the strategegy that I am using to pass the substring. Rather erasing
+  // the input string.
+  permutation_with_spaces_util(in.substr(1), op1, result);   
   permutation_with_spaces_util(in.substr(1), op2, result);
 
   return;
@@ -30,15 +33,14 @@ vector<string> permutation_with_spaces(string in) {
 }
 
 void test_permutation_with_spaces() {
-  CHECK_VECTOR(permutation_with_spaces("ABC"),
-               {"A_BC", "A_B_C", "AB_C", "ABC"});
+  CHECK(permutation_with_spaces("ABC"), {"A_B_C", "A_BC", "AB_C", "ABC"});
   PRINT_MSG;
 }
 
 /*--------------Permutation with case changes------------------*/
 // https://www.geeksforgeeks.org/permute-string-changing-case/
 
-vector<string> permute_with_case_change(string in, string& op,
+vector<string> permute_with_case_change(string in, string op,
                                         vector<string>& result) {
   if (in.empty()) {
     result.emplace_back(op);
@@ -55,10 +57,10 @@ vector<string> permute_with_case_change(string in, string& op,
 
 void test_permute_with_case_change() {
   string temp;
-  string in("ABC");
+  string in("abc");
   vector<string> tempv;
-  CHECK_VECTOR(permute_with_case_change(in, temp, tempv),
-               {"abc", "Abc", "aBc", "abC", "aBC", "AbC", "ABc", "ABC"});
+  permute_with_case_change(in, temp, tempv);
+  CHECK(tempv, {"abc", "abC", "aBc", "aBC", "Abc", "AbC", "ABc", "ABC"});
   PRINT_MSG;
 }
 
@@ -122,7 +124,6 @@ class Solution_784 {
 
 void test_letter_case_permutation() {
   Solution_784 s;
-  CHECK_VECTOR(s.letterCasePermutation("a1B2"),
-               {"a1b2", "a1B2", "A1b2", "A1B2"});
+  CHECK(s.letterCasePermutation("a1B2"), {"a1b2", "a1B2", "A1b2", "A1B2"});
   PRINT_MSG;
 }

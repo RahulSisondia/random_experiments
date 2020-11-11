@@ -100,7 +100,7 @@ void is_subset_sum() {
  */
 int count_subset_sum_rec(vector<int> item, int target, int n) {
   if (target == 0)
-    return 1;
+    return 1;  // There could nullsubset as well.
   else if (n < 0 || target < 0)
     return 0;
   else if (item[n] <= target) {
@@ -117,21 +117,21 @@ int count_subset_sum_rec(vector<int> item, int target, int n) {
    - We add the results of sub problems.
  */
 int count_subset_sum_top_down_util(vector<int> item, int target, int n,
-                                   vector<vector<int>> matrix) {
+                                   vector<vector<int>> dp) {
   if (target == 0)
     return 1;
   else if (n < 0 || target < 0)
     return 0;
-  else if (matrix[n][target] != -1)
-    return matrix[n][target];
+  else if (dp[n][target] != -1)
+    return dp[n][target];
 
   if (item[n] <= target) {
-    matrix[n][target] = (count_subset_sum_rec(item, target - item[n], n - 1) +
-                         count_subset_sum_rec(item, target, n - 1));
+    dp[n][target] = (count_subset_sum_rec(item, target - item[n], n - 1) +
+                     count_subset_sum_rec(item, target, n - 1));
   } else {
-    matrix[n][target] = count_subset_sum_rec(item, target, n - 1);
+    dp[n][target] = count_subset_sum_rec(item, target, n - 1);
   }
-  return matrix[n][target];
+  return dp[n][target];
 }
 
 int count_subset_sum_top_down(vector<int> item, int target, int n) {
@@ -145,20 +145,21 @@ int count_subset_sum_top_down(vector<int> item, int target, int n) {
 */
 int count_subset_bottom_up(vector<int> item, int target, int n) {
   if (target < 0) return 0;
-  vector<vector<int>> matrix(n + 1, vector<int>(target + 1, 0));
+  vector<vector<int>> dp(n + 1, vector<int>(target + 1, 0));
   // Empty set is possible if there is 0 target.
-  matrix[0][0] = 1;
+  dp[0][0] = 1;
   for (int i = 1; i <= n; i++) {
     for (int j = 0; j <= target; j++) {
       if (j == 0)
-        matrix[i][j] = 1;  // Empty set is possible if target is 0.
+        dp[i][j] = 1;  // Empty set is possible if target is 0.
       else if (item[i - 1] <= j)
-        matrix[i][j] = matrix[i - 1][j] + matrix[i - 1][j - item[i - 1]];
+        dp[i][j] = dp[i - 1][j] /* Exclude */ +
+                   dp[i - 1][j - item[i - 1]] /* Include */;
       else
-        matrix[i][j] = matrix[i - 1][j];
+        dp[i][j] = dp[i - 1][j];
     }
   }
-  return matrix.back().back();
+  return dp.back().back();
 }
 
 void count_subset_sum() {

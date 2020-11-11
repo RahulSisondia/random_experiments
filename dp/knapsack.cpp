@@ -12,6 +12,7 @@ int main() {
   min_subset_sum_diff();
   target_subset_sum();
   unbounded_knapsack();
+  test_cutting_rod();
   count_coin_change();
   min_coin_change_required();
   return 0;

@@ -1,7 +1,7 @@
 // FineIsland.cpp : https://www.geeksforgeeks.org/find-number-of-islands/
 // Implemented DFS and BFS iterative and recursive versions.
 // Count number of disconnected graphs
-// Also demonstrate to traverse in the maze.
+// Also demonstrate to traverse in the maze
 
 #include <array>
 #include <iostream>
@@ -21,7 +21,9 @@ int isSafe(const vector<vector<int>> M, size_t row, size_t col,
 }
 
 // A utility function to do DFS for a 2D boolean matrix. It only considers
-// the 8 neighbours as adjacent vertices
+// the 8 neighbours as adjacent vertices.
+// If you notice in the recursion version we process the first child  in
+// contrast to iterative approach there we process the last child
 void DFS_util(const vector<vector<int>> M, int row, int col,
               vector<vector<bool>> &visited, int &count) {
   // These arrays are used to get row and column numbers of 8 neighbours
@@ -39,6 +41,10 @@ void DFS_util(const vector<vector<int>> M, int row, int col,
     }
 }
 
+// If you notice in the recursion version we process the first child  in
+// contrast to iterative approach there we process the last child. Therefore,
+// output of traversal will be different but both are correct.
+// https://stackoverflow.com/questions/9201166/iterative-dfs-vs-recursive-dfs-and-different-elements-order
 void DFS_util_stk(const vector<vector<int>> M, int row, int col,
                   vector<vector<bool>> &visited, int &count) {
   // These arrays are used to get row and column numbers of 8 neighbours

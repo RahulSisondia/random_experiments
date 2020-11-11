@@ -1,8 +1,5 @@
 #pragma once
-#include <memory>
-#include <vector>
-
-using namespace std;
+#include "../my_util.h"
 
 // Test if a newly placed queen will conflict any earlier queens
 // placed before.
@@ -41,4 +38,9 @@ vector<vector<int>> NQueens(int n) {
   vector<vector<int>> result;
   SolveNQueens(n, 0, make_unique<vector<int>>().get(), &result);
   return result;
+}
+
+void test_NQueens() {
+  CHECK(NQueens(4), {{1, 3, 0, 2}, {2, 0, 3, 1}});
+  PRINT_MSG;
 }

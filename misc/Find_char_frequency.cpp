@@ -1,7 +1,6 @@
-// Find_char_frequency.cpp : Defines the entry point for the console application.
+// Find_char_frequency.cpp : Defines the entry point for the console
+// application.
 // https://aonecode.com/aplusplus/interviewctrl/getInterview/9113858397382350847
-
-#include "stdafx.h"
 #include <iostream>
 #include <unordered_map>
 #include <list>

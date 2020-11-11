@@ -1,19 +1,14 @@
 #pragma once
+#include "../my_util.h"
 
-#include <iostream>
-#include <string>
-#include <vector>
-
-using namespace std;
 // 02044 ==>
 // 020, 44
 //  020, 4, 4
 class Palindrome_decompositon {
-private:
+ private:
   bool is_palindrome(const string str) {
     for (size_t i = 0, j = str.size() - 1; i < j; i++, j--) {
-      if (str[i] != str[j])
-        return false;
+      if (str[i] != str[j]) return false;
     }
     return true;
   }
@@ -22,7 +17,6 @@ private:
   //  020, 4, 4
   void decompositon(const string &str, vector<vector<string>> &result,
                     vector<string> &current, int offset) {
-
     if (offset == str.size()) {
       result.push_back(current);
       return;
@@ -36,17 +30,16 @@ private:
         current.push_back(substr);
         decompositon(str, result, current, i);
         cout << "Popped substring " << current.back() << " i: " << i
-             << " len : " << i - offset  << endl;
+             << " len : " << i - offset << endl;
         current.pop_back();
-      } else
-	  {
+      } else {
         cout << "Not Palindrome " << substr << " i: " << i
              << " len : " << i - offset << endl;
-	  }
+      }
     }
   }
 
-public:
+ public:
   vector<vector<string>> decompositon(const string &str) {
     vector<vector<string>> result;
     vector<string> current;
@@ -54,3 +47,9 @@ public:
     return result;
   }
 };
+
+void test_palindromic_decomposition() {
+  Palindrome_decompositon pd;
+  PRINT(pd.decompositon("02044"));
+  PRINT_MSG;
+}

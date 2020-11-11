@@ -16,7 +16,9 @@ int eval_bool_expressions_rec(string str, int i, int j, bool to_eval) {
       return (str[i] == 'F');
   }
   int res = 0;
+  // The k will be equal to number of operators present.
   for (int k = i + 1; k <= j - 1; k += 2) {
+    // At k position there is operator therefore skip that.
     int left_true = eval_bool_expressions_rec(str, i, k - 1, true);
     int left_false = eval_bool_expressions_rec(str, i, k - 1, false);
 

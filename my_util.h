@@ -6,6 +6,9 @@
 #include <map>
 #include <memory>
 #include <numeric>
+#include <ostream>
+#include <queue>
+#include <set>
 #include <sstream>
 #include <stack>
 #include <string>
@@ -17,52 +20,93 @@ using namespace std;
 
 static int count_ops = 0;
 
-//  Accept count of tests and number of inputs from the user.
-  // string in;
-  // string op;
-  // op.reserve(in.size() * 2);
-  // int N;
-  // cin >> N;
-  // while (N--) {
-  //   cin >> in;
-  //   op.push_back(in[0]);
-  //   solve(in.substr(1), op);
-  //   op.clear();
-  //   in.clear();
-  // }
-
 template <typename t>
-void PRINT_MATRIX(vector<vector<t>> m) {
-  for (int i = 0; i < m.size(); i++) {
-    cout << endl;
-    for (int j = 0; j < m[0].size(); j++) {
-      cout << m[i][j] << "  ";
-    }
+void PRINT(vector<t> vect, string delimiter = " ", string wrap = "") {
+  map<string, string> wrap_dict = {
+      {"", ""}, {"{", "}"}, {"(", ")"}, {"{\"", "\"}"}};
+  int i = 0;
+  for (; i < vect.size() - 1; i++) {
+    if (wrap.empty())
+      std::cout << vect[i] << delimiter;
+    else
+      std::cout << wrap << vect[i] << wrap_dict[wrap] << delimiter;
   }
-  cout << endl;
-}
-template <typename t>
-void PRINT_VECTOR(vector<t> vect) {
-  std::for_each(vect.begin(), vect.end(),
-                [](auto item) { cout << item << endl; });
+  if (wrap.empty())
+    std::cout << vect[i];
+  else
+    std::cout << wrap << vect[i] << wrap_dict[wrap];
+
+  std::cout << endl;
 }
 
+template <typename t>
+void PRINT(vector<vector<t>> m, string delimiter = " ", string wrap = "") {
+  for (int i = 0; i < m.size(); i++) {
+    PRINT(m[i], delimiter, wrap);
+  }
+  std::cout << endl;
+}
 
 template <typename t>
-void CHECK(const t& returned, const t& expected) {
+void CHECK(const pair<t, t>& returned, const pair<t, t>& expected) {
   if (returned != expected) {
-    cout << "Test failed\n"
-         << "Expected: " << expected << ", Returned: " << returned << endl;
+    std::cout << "Test failed\n"
+              << "Expected : {" << expected.first << ", " << expected.second
+              << "}"
+              << "Returned : {" << returned.first << ", " << returned.second
+              << "}" << endl;
     assert(0);
   }
 }
 
 template <typename t>
-void CHECK_VECTOR(const vector<t>& vect, const vector<t>& result) {
-  assert(vect.size() == result.size());
-  std::for_each(vect.begin(), vect.end(), [&result](auto value) {
-    assert(std::find(result.begin(), result.end(), value) != result.end());
-  });
+void CHECK(const t& returned, const t& expected) {
+  if (returned != expected) {
+    std::cout << "Test failed\n"
+              << "Expected: " << expected << ", Returned: " << returned << endl;
+    assert(0);
+  }
 }
 
-#define PRINT_MSG cout << __func__ << " tests passed." << endl
+template <typename t>
+void CHECK(const vector<t>& vect, const vector<t>& result) {
+  if (result.size() != vect.size()) {
+    std::cout << "Test failed due to size mismatch\n"
+              << "Expected size: " << result.size()
+              << ", Returned size: " << vect.size() << endl;
+    assert(0);
+  }
+  for (int i = 0; i < vect.size(); i++) {
+    CHECK(result[i], vect[i]);
+  }
+}
+
+template <typename t>
+void CHECK(const vector<vector<t>>& returned,
+           const vector<vector<t>>& expected) {
+  if (returned.size() != expected.size()) {
+    std::cout << "Test failed due to size mismatch\n"
+              << "Expected: " << expected.size()
+              << ", Returned: " << returned.size() << endl;
+    assert(0);
+  }
+  for (int i = 0; i < expected.size(); i++) {
+    CHECK(returned[i], expected[i]);
+  }
+}
+
+//  Accept count of tests and number of inputs from the user.
+// string in;
+// string op;
+// op.reserve(in.size() * 2);
+// int N;
+// cin >> N;
+// while (N--) {
+//   cin >> in;
+//   op.push_back(in[0]);
+//   solve(in.substr(1), op);
+//   op.clear();
+//   in.clear();
+// }
+
+#define PRINT_MSG std::cout << __func__ << " tests passed." << endl

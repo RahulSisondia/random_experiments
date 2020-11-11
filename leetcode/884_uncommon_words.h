@@ -41,7 +41,7 @@ void uncommon_words_884() {
   string B = "this apple is sour";
   Solution_884 s;
 
-  CHECK_VECTOR(s.uncommonFromSentences(A, B), {"sour", "sweet"});
+  CHECK(s.uncommonFromSentences(A, B), {"sour", "sweet"});
   cout << "uncommon_words_884 passed." << endl;
   return;
 }

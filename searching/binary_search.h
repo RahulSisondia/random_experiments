@@ -60,7 +60,13 @@ void test_find_min_diff_with_given_key() {
 }
 
 ////// Allocate minimum number of pages//////////////////////////////////////
-
+/*
+Imagine we are given pages {10, 20, 30, 40}. First time we set the artificial
+limit of 50, and k = 2.
+We allocate 10+20 = 30 to the first student.  Then we allocate 30 to second
+element and then allocate 40 to the third student. Means it is invalid
+threshold. Therefore, valid value will lie somewhere between 50 and 100.
+*/
 bool is_valid(vector<int> pages, int k, int limit) {
   int student = 1;
   int sum = 0;
@@ -121,7 +127,7 @@ in following fashion :
 
 Approach:
 Imagine we are given pages {10, 20, 30, 40} and two students have to read. Total
-number of pages to. Read = 100. We have to allocate pages from this total.  That
+number of pages to read = 100. We have to allocate pages from this total.  That
 means on the number line that will be the high value. The low value could be
 from any of the book but better to choose from the book that has max pages. In
 the image below for illustration purpose the low is taken as 0. We can now

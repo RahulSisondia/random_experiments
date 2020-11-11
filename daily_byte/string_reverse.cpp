@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "../my_util.h"
+
 using namespace std;
 
 std::string reverse_string(std::string str) {
@@ -13,9 +15,12 @@ std::string reverse_string(std::string str) {
   return str;
 }
 
+void test_string_reverse() {
+  CHECK(reverse_string("Cat"), std::string("taC"));
+  CHECK(reverse_string("The Daily Byte"), std::string("etyB yliaD ehT"));
+  CHECK(reverse_string("civic"), std::string("civic"));
+}
 int main() {
-  cout << "Cat :" << reverse_string("Cat") << endl;
-  cout << "The Daily Byte :" << reverse_string("The Daily Byte") << endl;
-  cout << "civic :" << reverse_string("civic") << endl;
+  test_string_reverse();
   return 0;
 }
