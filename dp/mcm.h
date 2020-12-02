@@ -149,9 +149,7 @@ int min_palindromic_partitioning_rec(string str, int i, int j) {
     int temp_res =
         min_palindromic_partitioning_rec(str, i, k) /* left partition */
         + 1 /* cost of cutting left and right partitions */
-        + min_palindromic_partitioning_rec(str, k + 1,
-
-                                           j) /* right partition */;
+        + min_palindromic_partitioning_rec(str, k + 1, j) /* right partition */;
     res = min(res, temp_res);
     count_ops++;
     // Uncomment to debug

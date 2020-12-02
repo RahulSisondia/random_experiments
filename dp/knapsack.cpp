@@ -3,6 +3,7 @@
 #include "subset_sum.h"
 #include "sum_diff.h"
 #include "unbounded_knapsack.h"
+#include "last_stone_weight_1049.h"
 
 int main() {
   zero_one_knapsack();
@@ -15,5 +16,6 @@ int main() {
   test_cutting_rod();
   count_coin_change();
   min_coin_change_required();
+  test_stone_game_1049();
   return 0;
 }

@@ -17,5 +17,6 @@ int main() {
   test_combinations();
   test_kth_symbol();
   test_generate_balanced_parathesis();
+  test_print_n_bit_binary();
   return 0;
 }

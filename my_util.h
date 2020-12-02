@@ -20,11 +20,21 @@ using namespace std;
 
 static int count_ops = 0;
 
+// Base function in the recursive class below .
+void PRINTV() { cout << "\n"; }
+
+template <typename T, typename... Types>
+void PRINTV(T var1, Types... var2) {
+  std::cout << var1 << " ";
+  PRINTV(var2...);
+}
+
 template <typename t>
 void PRINT(vector<t> vect, string delimiter = " ", string wrap = "") {
   map<string, string> wrap_dict = {
-      {"", ""}, {"{", "}"}, {"(", ")"}, {"{\"", "\"}"}};
+      {"", ""}, {"{", "}"}, {"(", ")"}, {"{\"", "\"}"}, {"\"", "\""}};
   int i = 0;
+  std::cout << "{";
   for (; i < vect.size() - 1; i++) {
     if (wrap.empty())
       std::cout << vect[i] << delimiter;
@@ -35,15 +45,18 @@ void PRINT(vector<t> vect, string delimiter = " ", string wrap = "") {
     std::cout << vect[i];
   else
     std::cout << wrap << vect[i] << wrap_dict[wrap];
-
+  std::cout << "}";
   std::cout << endl;
 }
 
 template <typename t>
 void PRINT(vector<vector<t>> m, string delimiter = " ", string wrap = "") {
+  std::cout << "{";
+  std::cout << endl;
   for (int i = 0; i < m.size(); i++) {
     PRINT(m[i], delimiter, wrap);
   }
+  std::cout << "}";
   std::cout << endl;
 }
 
