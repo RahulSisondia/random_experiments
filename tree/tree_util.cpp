@@ -15,70 +15,44 @@ void Binary_tree::insert(int key, shared_ptr<Node> leaf) {
   if (key < leaf->data) {
     if (leaf->left)
       insert(key, leaf->left);
-    else
+    else {
       leaf->left = make_shared<Node>(key);
+      leaf->left->parent = leaf;
+    }
   } else {
     if (leaf->right)
       insert(key, leaf->right);
-    else
+    else {
       leaf->right = make_shared<Node>(key);
+      leaf->right->parent = leaf;
+    }
   }
 }
 
 void Binary_tree::insert(int key) {
   if (m_root)
     insert(key, m_root);
-  else
+  else {
     m_root = make_shared<Node>(key);
-}
-
-shared_ptr<Node> Binary_tree::search(int key, shared_ptr<Node> leaf) {
-  if (!leaf) return nullptr;
-  if (leaf->data == key)
-    return leaf;
-  else if (leaf->data < key)
-    return search(key, leaf->right);
-  else
-    return search(key, leaf->left);
-}
-
-shared_ptr<Node> Binary_tree::search(int key) { return search(key, m_root); }
-
-void Binary_tree::inorder_print(shared_ptr<Node> leaf) {
-  if (!leaf) return;
-
-  inorder_print(leaf->left);
-  std::cout << leaf->data << " ";
-  inorder_print(leaf->right);
+    m_root->parent = nullptr;
+  }
 }
 
 void Binary_tree::inorder_print() {
   std::cout << "inorder :\n";
-  inorder_print(m_root);
+  ::inorder_print(m_root);
   std::cout << "\n";
 }
 void Binary_tree::postorder_print() {
   std::cout << "postorder :\n";
-  postorder_print(m_root);
+  ::postorder_print(m_root);
   std::cout << "\n";
-}
-void Binary_tree::postorder_print(shared_ptr<Node> leaf) {
-  if (!leaf) return;
-  postorder_print(leaf->left);
-  postorder_print(leaf->right);
-  std::cout << leaf->data << " ";
 }
 
 void Binary_tree::preorder_print() {
   std::cout << "preorder :\n";
-  preorder_print(m_root);
+  ::preorder_print(m_root);
   std::cout << "\n";
-}
-void Binary_tree::preorder_print(shared_ptr<Node> leaf) {
-  if (!leaf) return;
-  std::cout << leaf->data << " ";
-  preorder_print(leaf->left);
-  preorder_print(leaf->right);
 }
 
 void Binary_tree::level_order_print() {
@@ -94,10 +68,9 @@ void Binary_tree::level_order_print() {
     if (node->left) q.emplace(node->left);
     if (node->right) q.emplace(node->right);
   }
-  std::for_each(result.begin(), result.end(),
-                [](const auto &a) { cout << a << " "; });
-  std::cout << "\n";
-}
+  CHECK(result, {40, 10, 50, 20, 60, 30, 55, 80});
+  PRINT_MSG;
+  }
 
 void Binary_tree::level_order_print_by_counting() {
   std::cout << "level_order_print_by_counting\n";
@@ -129,9 +102,8 @@ void Binary_tree::level_order_print_by_counting() {
       next_level_size = 0;
     }
   }
-  std::for_each(result.begin(), result.end(),
-                [](const auto &a) { cout << a << " "; });
-  std::cout << "\n";
+  CHECK(result, {40, 10, 50, 20, 60, 30, 55, 80});
+  PRINT_MSG;
 }
 
 void Binary_tree::spiral_level_order_print_by_counting() {
@@ -175,13 +147,11 @@ void Binary_tree::spiral_level_order_print_by_counting() {
       ltr = !ltr;
     }
   }
-  std::for_each(result.begin(), result.end(),
-                [](const auto &a) { cout << a << " "; });
-  std::cout << "\n";
+  PRINT_V(result);
+  PRINT_MSG;
 }
 
 void Binary_tree::spiral_level_order_print_using_two_stack() {
-  std::cout << "spiral_level_order_print_using_two_stack\n";
   if (!m_root) return;
   std::vector<int> result;
   std::stack<shared_ptr<Node>> s1, s2;
@@ -204,12 +174,15 @@ void Binary_tree::spiral_level_order_print_using_two_stack() {
       if (node->left) s1.emplace(node->left);
     }
   }
-  std::for_each(result.begin(), result.end(),
-                [](const auto &a) { cout << a << " "; });
-  std::cout << "\n";
+  CHECK(result, {40, 50, 10, 20, 60, 80, 55, 30});
+  PRINT_MSG;
 }
-
-void Binary_tree::bottem_up_traversal() {
+/*
+ This is easier method to do the level order traversal.
+ Besides, it could be used to find the Bottom left or Bottom right node or last
+ level easily.
+*/
+void Binary_tree::level_order_preferred() {
   if (m_root == nullptr) return;
   vector<vector<int>> result;
   std::queue<shared_ptr<Node>> q;
@@ -227,14 +200,45 @@ void Binary_tree::bottem_up_traversal() {
     }
     result.push_back(level);
   }
-  for (int i = result.size() - 1; i >= 0; i--) {
-    cout << "{";
-    for (int j = 0; j < result[i].size() - 1; j++) {
-      cout << result[i][j] << ",";
+  CHECK(result, {{40}, {10, 50}, {20, 60}, {30, 55, 80}});
+  PRINT_MSG;
+}
+
+/*
+ We change the datastructure from queue to dequeue and we can do spiral order
+ traversal as well. This is cool techinique. Only thing is to be careful from
+ where to pop and in what order to push the children.
+*/
+void Binary_tree::spiral_level_order_preferred() {
+  if (m_root == nullptr) return;
+  vector<vector<int>> result;
+
+  std::deque<shared_ptr<Node>> q;
+  bool ltr = true;
+  q.push_back(m_root);
+  while (q.empty() == false) {
+    vector<int> level;
+    int node_count = q.size();
+    while (node_count) {
+      shared_ptr<Node> node;
+      if (ltr) {
+        node = q.front();
+        q.pop_front();
+        if (node->left) q.push_back(node->left);
+        if (node->right) q.push_back(node->right);
+      } else {
+        node = q.back();
+        q.pop_back();
+        if (node->right) q.push_front(node->right);
+        if (node->left) q.push_front(node->left);
+      }
+      level.push_back(node->data);
+      node_count--;
     }
-    cout << result[i].back();
-    cout << "}" << endl;
+    ltr = !ltr;
+    result.push_back(level);
   }
+  CHECK(result, {{40}, {50, 10}, {20, 60}, {80, 55, 30}});
   PRINT_MSG;
 }
 
@@ -255,6 +259,7 @@ int main() {
   bt.level_order_print();
   bt.level_order_print_by_counting();
   bt.spiral_level_order_print_using_two_stack();
-  bt.bottem_up_traversal();
+  bt.level_order_preferred();
+  bt.spiral_level_order_preferred();
   return 0;
 }

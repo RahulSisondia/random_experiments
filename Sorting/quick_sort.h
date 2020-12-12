@@ -1,6 +1,5 @@
-#include <iostream>
-#include <vector>
-using namespace std;
+#pragma once
+#include "../my_util.h"
 
 /*
   Best case :
@@ -25,8 +24,8 @@ class Quick_sort {
   /*
    Note : high is basically infinity here. It is the actual size of the array.
    First thing we do is to decrement it.
-   inspired from : https://youtu.be/7h1s2SojIRw @ 12:53
    Read Wiki page as well - https://en.wikipedia.org/wiki/Quicksort
+   Better use this implementation : https://youtu.be/COk73cpQbFQ
   */
   int partition_first_element(size_t low, size_t high) {
     int pivot = m_vect[low];
@@ -74,23 +73,15 @@ class Quick_sort {
   }
 };
 
-int main() {
+void test_quick_sort() {
   Quick_sort qs;
-  for (int num : qs.sort({10, 3, 4, 1, 2, 6, 8, 7, 5, 9})) {
-    cout << num << " ";
-  }
-  cout << endl;
-  for (int num : qs.sort({1, 2, 3, 4, 5, 6, 7, 8, 9, 10})) {
-    cout << num << " ";
-  }
-  cout << endl;
-  for (int num : qs.sort({10, 9, 8, 7, 6, 5, 4, 3, 2, 1})) {
-    cout << num << " ";
-  }
-  cout << endl;
-  for (int num : qs.sort({10, 9, 8, 7, -6, 5, -4, 3, 2, 1})) {
-    cout << num << " ";
-  }
-  cout << endl;
-  return 0;
+  CHECK(qs.sort({10, 3, 4, 1, 2, 6, 8, 7, 5, 9}),
+        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+  CHECK(qs.sort({1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
+        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+  CHECK(qs.sort({10, 9, 8, 7, 6, 5, 4, 3, 2, 1}),
+        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+  CHECK(qs.sort({10, 9, 8, 7, -6, 5, -4, 3, 2, 1}),
+        {-6, -4, 1, 2, 3, 5, 7, 8, 9, 10});
+  PRINT_MSG;
 }

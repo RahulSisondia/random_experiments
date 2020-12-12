@@ -269,3 +269,43 @@ void test_palindromic_partitioning() {
 
   PRINT_MSG;
 }
+/*
+https://leetcode.com/problems/burst-balloons/
+This is similar to mcm. Only hard part part is to get the calculations of
+bursting balloons right
+// 1,3,2,3,4,5,6,7,1
+//   ^           ^
+//   i           j
+*/
+int burst_balloon(vector<int> v, int i, int j, vector<vector<int>>& dp) {
+  if (i > j) return 0;
+  if (i == j) {
+    dp[i][j] = v[i - 1] * v[i] * v[i + 1];
+    return dp[i][j];
+  }
+  if (dp[i][j] != -1) {
+    return dp[i][j];
+  }
+  int res = numeric_limits<int>::min();
+  for (int k = i; k <= j; k++) {
+    int left_cost = burst_balloon(v, i, k - 1, dp);
+    int right_cost = burst_balloon(v, k + 1, j, dp);
+    int cost = v[k] * v[i - 1] * v[j + 1] + left_cost + right_cost;
+    res = max(res, cost);
+  }
+  dp[i][j] = res;
+  return res;
+}
+int burst_balloon(vector<int> v) {
+  int size = v.size();
+  v.insert(v.begin(), 1);
+  v.push_back(1);
+  vector<vector<int>> dp(v.size(), vector<int>(v.size(), -1));
+  // Original array will be at these positions
+  return burst_balloon(v, 1, size, dp);
+}
+void test_burst_balloon() {
+  vector<int> v = {3, 1, 5, 8};
+  PRINT(burst_balloon(v));
+  PRINT_MSG;
+}

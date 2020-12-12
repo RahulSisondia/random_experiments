@@ -122,6 +122,6 @@ void test_stone_game_1049() {
   CHECK(s_rec.lastStoneWeightII(v), 1);
   CHECK(min_subset_sum_diff_rec(v), 1);
   v = {1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 14, 23, 37, 61, 98};
-  PRINTV(min_subset_sum_diff_rec(v));
+  PRINT(min_subset_sum_diff_rec(v));
   PRINT_MSG;
 }

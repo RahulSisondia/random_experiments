@@ -8,6 +8,7 @@
 #include "shortest_path_dijkstra.h"
 #include "team_game.h"
 #include "topological_sort.h"
+#include "transform_string.h"
 
 int main() {
   // test_team_game();
@@ -17,5 +18,6 @@ int main() {
   test_search_in_maze();
   test_dijkstra();
   resonstruct_itinerary();
+  test_transform_string();
   return 0;
 }

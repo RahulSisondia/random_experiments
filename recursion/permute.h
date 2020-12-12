@@ -65,6 +65,18 @@ class Permute_IB {
     return result;
   }
 };
+/* This is another simple version to use without visiting flag. We keep on
+ * reducing the input*/
+void RecPermute(string soFar, string rest, vector<string> &result) {
+  if (rest.empty()) {
+    result.push_back(soFar);
+  } else {
+    for (int i = 0; i < rest.length(); i++) {
+      string remaining = rest.substr(0, i) + rest.substr(i + 1);
+      RecPermute(soFar + rest[i], remaining, result);
+    }
+  }
+}
 
 void test_permutations() {
   Permute<string> p;
@@ -85,5 +97,10 @@ void test_permutations() {
                                  {"C", "B", "A"},
                                  {"C", "A", "B"},
                              });
+
+  string temp;
+  vector<string> result;
+  RecPermute(temp, "abc", result);
+  CHECK(result, {"abc", "acb", "bac", "bca", "cab", "cba"});
   PRINT_MSG;
 }

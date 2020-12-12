@@ -40,8 +40,8 @@ output is correct :-( .
 Therefore, if we go KUL then we are stuck there. Why does
 it produce outut like that ?? There are two reasons :
  - I am using BFS approach which is greedy in nature. It alone is not
-  ufficient, we need backtracking along with greedy here.
- - Since it is BFS, I am processed all children togather.
+  sufficient, we need backtracking along with greedy here.
+ - Since it is BFS, I am processing all children together.
 
 It means we have to try all possible route and print once found a
 vlid route i.e. backtracking which requires recursion hence DFS based solution
@@ -110,24 +110,24 @@ class Solution_332_euler_path {
  public:
   vector<string> findItinerary(vector<vector<string>>& tickets) {
     /* Set is an ordered container, it stores the values in sorted order */
-    unordered_map<string, multiset<string>> adj;
+    unordered_map<string, multiset<string>> graph;
     for (int i = 0; i < tickets.size(); i++) {
       string u = tickets[i][0];
       string v = tickets[i][1];
-      adj[u].insert(v);
+      graph[u].insert(v);
     }
     vector<string> ans;
     stack<string> st;
     st.push("JFK");
     while (!st.empty()) {
       string curr = st.top();
-      if (adj[curr].size() == 0) {
+      if (graph[curr].size() == 0) {
         ans.push_back(curr);
         st.pop();
       } else {
-        auto dest = adj[curr].begin();
+        auto dest = graph[curr].begin();
         st.push(*dest);
-        adj[curr].erase(dest);
+        graph[curr].erase(dest);
       }
     }
     reverse(ans.begin(), ans.end());

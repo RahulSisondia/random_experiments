@@ -67,6 +67,5 @@ void test_combinations() {
   CHECK(c.combine(3, 2), {{1, 2}, {1, 3}, {2, 3}});
   Combinations_cp cp;
   CHECK(cp.combine(3, 2), {{1, 2}, {1, 3}, {2, 3}});
-  PRINT(cp.combine(3,3));
   PRINT_MSG;
 }

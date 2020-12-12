@@ -18,6 +18,12 @@ bool IsValid(const vector<int>& col_placement) {
   return true;
 }
 
+/*
+In this approach we are are given row position of the queen. We then try to set
+on each column on what works out. This solution prints all possible
+arangements, we could easily modify if we were to validate an already filled
+board.
+*/
 void SolveNQueens(int n, int row, vector<int>* col_placement,
                   vector<vector<int>>* result) {
   if (row == n) {
@@ -36,6 +42,8 @@ void SolveNQueens(int n, int row, vector<int>* col_placement,
 
 vector<vector<int>> NQueens(int n) {
   vector<vector<int>> result;
+
+  // Start with the 0th Row
   SolveNQueens(n, 0, make_unique<vector<int>>().get(), &result);
   return result;
 }

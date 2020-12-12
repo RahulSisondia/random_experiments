@@ -9,5 +9,6 @@ int main() {
   test_evaluate_bool_expressions();
   test_scrambled_strings();
   test_paint_house();
+  test_burst_balloon();
   return 0;
 }

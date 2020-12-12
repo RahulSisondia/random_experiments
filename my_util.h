@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <deque>
 #include <iostream>
+#include <list>
 #include <map>
 #include <memory>
 #include <numeric>
@@ -20,17 +21,14 @@ using namespace std;
 
 static int count_ops = 0;
 
-// Base function in the recursive class below .
-void PRINTV() { cout << "\n"; }
-
-template <typename T, typename... Types>
-void PRINTV(T var1, Types... var2) {
-  std::cout << var1 << " ";
-  PRINTV(var2...);
+template <typename t>
+void PRINT_PR(const std::pair<t, t>& p) {
+  cout << "{" << p.first << ", " << p.second << "}\n";
 }
 
 template <typename t>
-void PRINT(vector<t> vect, string delimiter = " ", string wrap = "") {
+void PRINT_V(vector<t> vect, string delimiter = ", ", string wrap = "",
+             bool new_line = true) {
   map<string, string> wrap_dict = {
       {"", ""}, {"{", "}"}, {"(", ")"}, {"{\"", "\"}"}, {"\"", "\""}};
   int i = 0;
@@ -46,18 +44,34 @@ void PRINT(vector<t> vect, string delimiter = " ", string wrap = "") {
   else
     std::cout << wrap << vect[i] << wrap_dict[wrap];
   std::cout << "}";
-  std::cout << endl;
+  if (new_line) std::cout << endl;
 }
 
 template <typename t>
-void PRINT(vector<vector<t>> m, string delimiter = " ", string wrap = "") {
+void PRINT_V(vector<vector<t>> m, string delimiter = ", ", string wrap = "") {
   std::cout << "{";
   std::cout << endl;
   for (int i = 0; i < m.size(); i++) {
-    PRINT(m[i], delimiter, wrap);
+    PRINT_V(m[i], delimiter, wrap, false);
+    if (i < m.size() - 1) std::cout << ",";
+    cout << "\n";
   }
   std::cout << "}";
   std::cout << endl;
+}
+template <typename t, typename k>
+void PRINT_UMAP(unordered_map<t, k> mp) {
+  for (auto it : mp) {
+    cout << "{" << it.first << " : " << it.second << "}\n";
+  }
+}
+    // Base function in the recursive class below .
+void PRINT() { cout << "\n"; }
+
+template <typename T, typename... Types>
+void PRINT(T var1, Types... var2) {
+  std::cout << var1 << " ";
+  PRINT(var2...);
 }
 
 template <typename t>

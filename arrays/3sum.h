@@ -1,8 +1,4 @@
-#include <algorithm>
-#include <iostream>
-#include <vector>
-
-using namespace std;
+#include "../my_util.h"
 
 class Solution {
  public:
@@ -48,20 +44,10 @@ class Solution {
   }
 };
 
-int main() {
+void test_three_sum() {
   Solution s;
-
   vector<int> nums{0, -2, -2, 0, 2, 4, 2};
-
   auto result = s.threeSum(nums);
-  std::string str;
-  for (int i = 0; i < result.size(); i++) {
-    str = "[";
-    for (int j = 0; j < result[0].size(); j++) {
-      str += (std::to_string(result[i][j]));
-      str += ",";
-    }
-    str.append("]");
-    std::cout << str << std::endl;
-  }
+  CHECK(result, {{-2, -2, 4}, {-2, 0, 2}});
+  PRINT_MSG;
 }

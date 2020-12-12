@@ -72,3 +72,70 @@ void test_next_greater_to_left() {
   CHECK(next_greater_to_left(v), {-1, -1, 3, 3, 3, -1});
   PRINT_MSG;
 }
+
+/*
+The only difference from above solution is that we just changed the condition
+checks.
+*/
+vector<int> next_smaller_to_left(vector<int> v) {
+  stack<int> s;
+  vector<int> result;
+  for (int i = 0; i < v.size(); i++) {
+    if (s.empty()) {
+      result.push_back(-1);
+      s.push(v[i]);
+    } else if (s.top() < v[i]) {
+      result.push_back(s.top());
+      s.push(v[i]);
+    } else {
+      while (s.empty() == false && s.top() >= v[i]) {
+        s.pop();
+      }
+      if (s.empty())
+        result.push_back(-1);
+      else
+        result.push_back(s.top());
+      s.push(v[i]);
+    }
+  }
+  return result;
+}
+
+void test_next_smaller_to_left() {
+  vector<int> v = {1, 3, 0, 0, 2, 4};
+  CHECK(next_smaller_to_left(v), {-1, 1, -1, -1, 0, 2});
+  PRINT_MSG;
+}
+
+vector<int> next_smaller_to_right(vector<int> v) {
+  stack<int> s;
+  vector<int> result;
+  for (int i = v.size() - 1; i >= 0; i--) {
+    if (s.empty()) {
+      result.push_back(-1);
+      s.push(v[i]);
+    } else if (s.top() < v[i]) {
+      result.push_back(s.top());
+      s.push(v[i]);
+    } else {
+      while (s.empty() == false && s.top() >= v[i]) {
+        s.pop();
+      }
+      if (s.empty())
+        result.push_back(-1);
+      else
+        result.push_back(s.top());
+      s.push(v[i]);
+    }
+  }
+  reverse(result.begin(), result.end());
+  return result;
+}
+
+void test_next_smaller_to_right() {
+  vector<int> v = {1, 3, 0, 0, 2, 4};
+  // PRINT(next_greater_to_right(v), ",");
+  CHECK(next_smaller_to_right(v), {0, 0, -1, -1, -1, -1});
+  PRINT_MSG;
+}
+

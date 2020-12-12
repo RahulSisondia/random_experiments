@@ -28,7 +28,7 @@ lis.cpp
 ADD_EXECUTABLE(lis ${lis_SOURCES} )
 
 
-PROJECT( misc )
+PROJECT( dp_misc )
 SET( misc_SOURCES 
 misc_main.cpp
 )

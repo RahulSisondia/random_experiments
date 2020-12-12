@@ -1,14 +1,10 @@
-PROJECT( dutch_national_flag )
-SET( DUTCH_SOURCES 
-dutch_national_flag.cpp)
-ADD_EXECUTABLE( dutch_national_flag ${DUTCH_SOURCES} )
+PROJECT( sliding_window )
+SET( sliding_window_SOURCES 
+sliding_window.cpp)
+ADD_EXECUTABLE( sliding_window ${sliding_window_SOURCES} )
 
-PROJECT( subarray_with_given_sum )
-SET( SUBARRAY_SOURCES 
-subarray-with-given-sum.cpp)
-ADD_EXECUTABLE( subarray_with_given_sum ${SUBARRAY_SOURCES} )
-
-PROJECT( 3sum )
-SET( 3SUM_SOURCES 
-3sum.cpp)
-ADD_EXECUTABLE( 3sum ${3SUM_SOURCES} )
+PROJECT(arrays)
+SET (arrays_SOURCES
+arrays.cpp
+)
+ADD_EXECUTABLE(arrays ${arrays_SOURCES})

@@ -5,10 +5,10 @@
 #include <iostream>
 
 #include "EPI13.7_Sliding_Window.h"
+#include "lru_cache.h"
 
 int main() {
-  file_smallest_sub_array({"apple", "banana", "apple", "apple", "dog", "cat",
-                           "apple", "dog", "banana", "apple", "cat", "dog"},
-                          {"banana", "cat"});
+  test_sliding_window();
+  test_lru_cache_146();
   return 0;
 }
