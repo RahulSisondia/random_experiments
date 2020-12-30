@@ -96,7 +96,7 @@ vector<string> find_all_anagrams(const string str, const string pattern) {
       ch = str[left];
       if (fm.find(ch) != fm.end()) {
         ++fm[ch];
-        // Goatchas : Don't forget he condition check.  Remember we need to
+        // Goatchas : Don't forget the condition check.  Remember we need to
         // increase the count only when char is added first time in the map.
         if (fm[ch] == 1) ++gc;
       }
@@ -149,6 +149,7 @@ vector<string> find_all_anagrams_better(const string str,
 
 void test_find_all_anagrams() {
   CHECK(find_all_anagrams("forxxorfxdofr", "for"), {"for", "orf", "ofr"});
+  CHECK(find_all_anagrams("ccbabd", "abbc"), {"cbab"});
   CHECK(find_all_anagrams("aabaabaa", "aaba"),
         {"aaba", "abaa", "aaba", "abaa"});
   CHECK(find_all_anagrams_better("forxxorfxdofr", "for"),

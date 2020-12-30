@@ -1,3 +1,4 @@
+#include "../my_util.h"
 #pragma once
 #include <iostream>
 #include <memory>
@@ -36,12 +37,12 @@ std::once_flag Singleton<T>::m_once;
 
 template <typename T>
 Singleton<T>::Singleton() {
-  cout << "Singleton::Singleton()\n";
+  // cout << "Singleton::Singleton()\n";
 }
 
 template <typename T>
 Singleton<T>::~Singleton() {
-  cout << "Singleton::~Singleton()\n";
+  // cout << "Singleton::~Singleton()\n";
 }
 /*
 C++11 removes the need for manual locking. Concurrent execution shall wait if a
@@ -49,14 +50,14 @@ static local variable is already being initialized.
 */
 template <typename T>
 Singleton<T>& Singleton<T>::get_instance() {
-  cout << "Singleton::get_instance()\n";
+  // cout << "Singleton::get_instance()\n";
   static Singleton<T> t;
   return t;
 }
 
 template <typename T>
 Singleton<T>& Singleton<T>::getInstance() {
-  cout << "Singleton::getInstance()\n";
+  // cout << "Singleton::getInstance()\n";
   std::call_once(m_once, [&]() { m_ins.reset(new Singleton<T>); });
   return *m_ins.get();
 }
@@ -64,9 +65,11 @@ Singleton<T>& Singleton<T>::getInstance() {
 void check_singleton() {
   Singleton<int>& s1 = Singleton<int>::get_instance();
   Singleton<int>& s2 = Singleton<int>::getInstance();
+  s1.get_instance();
+  s2.get_instance();
   Singleton<int>::get_instance();
   Singleton<int>::getInstance();
-  cout << "Create char type" << std::endl;
+  // Create char type
   Singleton<char>::get_instance();
   Singleton<char>::getInstance();
   Singleton<char>::get_instance();

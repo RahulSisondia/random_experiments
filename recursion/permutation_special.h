@@ -8,11 +8,11 @@ void permutation_with_spaces_util(string in, string op,
     return;
   }
 
-  string op1(op);      // exclude space
+  string op1(op);
   op1.push_back('_');  // Include with space
   op1.push_back(in[0]);
 
-  string op2(op);
+  string op2(op);  // exclude space
   op2.push_back(in[0]);
 
   // Notice the strategegy that I am using to pass the substring. Rather erasing

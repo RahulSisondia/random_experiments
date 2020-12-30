@@ -112,6 +112,8 @@ void test_search_in_maze() {
    {1, 0, 0, 1, 0}, 
    {0, 0, 0, 0, 0} 
   };
+  // source [4,0]
+  // target [0,4]
   /*clang-format on */ 
  
   // auto result = search_in_maze_bfs(maze);
@@ -123,4 +125,85 @@ void test_search_in_maze() {
   PRINT_MSG;
 }
 
+/*
+Shortest Cell Path
+In a given grid of 0s and 1s, we have some starting row and column sr, sc and a target row and column tr, tc.
+Return the length of the shortest path from sr, sc to tr, tc that walks along 1 values only.
 
+Each location in the path, including the start and the end, must be a 1. Each subsequent location in 
+the path must be 4-directionally adjacent to the previous location.
+
+It is guaranteed that grid[sr][sc] = grid[tr][tc] = 1, and the starting and target positions are different.
+
+If the task is impossible, return -1.
+
+Examples:
+
+input:
+grid = [[1, 1, 1, 1], [0, 0, 0, 1], [1, 1, 1, 1]]
+sr = 0, sc = 0, tr = 2, tc = 0
+output: 8
+(The lines below represent this grid:)
+1111
+0001
+1111
+*/
+
+bool is_valid(const vector<vector<int>>& grid, const set<pair<int,int>>& visited, int row, int col) {
+  if(row < 0 || row >= grid.size() || col < 0 || col >= grid[0].size() || grid[row][col] == 0)
+    return false; 
+  if(visited.find({row, col}) != visited.end()) 
+    return false;
+  return true;
+}
+
+int shortestCellPath(const vector<vector<int>>& grid, int sr, int sc, int tr, int tc)
+{
+   struct Node {
+    pair<int, int> p; 
+    int count;
+   };
+   queue<Node> q; 
+   set<pair<int,int>> visited; 
+   pair<int, int> source = {sr, sc};
+   pair<int, int> target = {tr, tc};
+   vector<pair<int,int>> positions = {{0,-1}, {0,+1}, {-1,0}, {+1,0}};
+   int path =-1;
+   q.push({source, 0}); 
+   visited.emplace(source);
+   while(!q.empty()) {
+     auto node = q.front(); 
+     if(node.p == target) {
+       path = node.count;
+       break;
+     }
+     q.pop(); // Remove the node
+     for(auto pos : positions) {
+       int row = pos.first + node.p.first; 
+       int col = pos.second + node.p.second; 
+       pair<int, int> pr = {row,col};
+       if(is_valid(grid, visited, row, col)) {
+         q.push({pr, node.count+1});
+         visited.emplace(pr);
+       }
+     }
+   }
+  return path;
+}
+
+
+void test_count_shortestCellPath() {
+  /*
+  ->[1], 1, 1, 1],
+    [0, 0, 0, 1], 
+  ->[1], 1, 1, 1]
+  */
+  CHECK(shortestCellPath({{1, 1, 1, 1}, {0, 0, 0, 1}, {1, 1, 1, 1}}, 0,0,2,0),8);
+    /*
+  ->[1], 1, 1, 1],
+    [0, 0, 0, 1], 
+  ->[1], 0, 1, 1]
+  */
+  CHECK(shortestCellPath({{1, 1, 1, 1}, {0, 0, 0, 1}, {1, 0, 1, 1}}, 0,0,2,0), -1);
+  PRINT_MSG;
+}

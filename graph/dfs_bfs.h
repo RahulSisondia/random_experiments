@@ -1,15 +1,9 @@
+#include "../my_util.h"
+
 // FineIsland.cpp : https://www.geeksforgeeks.org/find-number-of-islands/
 // Implemented DFS and BFS iterative and recursive versions.
 // Count number of disconnected graphs
 // Also demonstrate to traverse in the maze
-
-#include <array>
-#include <iostream>
-#include <queue>
-#include <string>
-#include <vector>
-
-using namespace std;
 
 // A function to check if a given cell (row, col) can be included in DFS
 int isSafe(const vector<vector<int>> M, size_t row, size_t col,
@@ -126,17 +120,18 @@ int countIslands(vector<vector<int>> M) {
         count = 0;
         ++island_number;  // and increment island count
       }
-  std::cout << "Max Island size : " << max_count << "\n";
+
+  CHECK(max_count, 7);  // Maximum number of islands
   return island_number;
 }
 
 // Driver program to test above function
-int main() {
+void test_count_islands() {
   vector<vector<int>> M{{1, 1, 0, 0, 0},
                         {0, 1, 0, 1, 1},
                         {1, 0, 0, 1, 1},
                         {0, 0, 0, 1, 0},
                         {1, 0, 1, 0, 1}};
-  printf("Number of islands is: %d\n", countIslands(M));
-  return 0;
+  // Number if islands
+  CHECK(countIslands(M), 3);
 }

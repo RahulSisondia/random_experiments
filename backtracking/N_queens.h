@@ -29,14 +29,15 @@ void SolveNQueens(int n, int row, vector<int>* col_placement,
   if (row == n) {
     // All queens are legally placed.
     result->emplace_back(*col_placement);
-  } else {
-    for (int col = 0; col < n; ++col) {
-      col_placement->emplace_back(col);
-      if (IsValid(*col_placement)) {
-        SolveNQueens(n, row + 1, col_placement, result);
-      }
-      col_placement->pop_back();
+    return;
+  }
+
+  for (int col = 0; col < n; ++col) {
+    col_placement->emplace_back(col);
+    if (IsValid(*col_placement)) {
+      SolveNQueens(n, row + 1, col_placement, result);
     }
+    col_placement->pop_back();
   }
 }
 

@@ -143,3 +143,111 @@ void test_allocate_pages() {
 
   PRINT_MSG;
 }
+
+int count_rotations(const vector<int>& v) {
+  int start = 0;
+  int end = v.size();
+  const int N = v.size();
+  while (start <= end) {
+    int mid = start + (end - start) / 2;
+    int prev = (mid - 1 + N) % N;
+    int next = (mid + 1) % N;
+    // 9 *3* 4 5
+    if (v[mid] < v[prev]) return mid;
+    // *9* 3 4 5
+    else if (v[next] < v[mid]) {
+      return next;
+    } else if (v[start] < v[mid]) {
+      // First half is sorted. We need to go to the next half
+      start = mid + 1;
+    } else {
+      // Second half is sorted. Therefore, go to the first half.
+      end = mid - 1;
+    }
+  }
+  return 0;
+}
+/*
+ This is simpler than the previous implementation.
+ We need to compar the mif with the end.
+ and include the mid while setting the hi.
+ Note :  Following will not work
+  if(nums[mid] > nums[lo]) {
+                lo=mid;
+            } else {
+                hi=mid-1;
+            }
+Because if you replace the "return nums[lo]" to "return nums[hi]", you will get
+maximum element instead. "hi =mid-1" will skip the minimum value if nums[mid] =
+minimum element, and nums[lo] will give the wrong value on the left side of the
+minimum element.
+*/
+int findMin(vector<int>& nums) {
+  int lo = 0, hi = nums.size() - 1;
+  while (lo < hi) {
+    int mid = lo + (hi - lo) / 2;
+    if (nums[mid] < nums[hi]) {
+      hi = mid;  // Important to get it correct.
+    } else {
+      lo = mid + 1;
+    }
+  }
+  return nums[lo];
+}
+
+void test_count_rotations() {
+  CHECK(count_rotations({4, 5, 6, 7, 0, 1, 2}), 4);
+  CHECK(count_rotations({4, 5, 6, 7, 8}), 0);
+  PRINT_MSG;
+}
+
+class Solution_33 {
+ public:
+  int search(const vector<int>& nums, int target) {
+    int start = 0;
+    int end = nums.size() - 1;
+    while (start <= end) {
+      int mid = start + (end - start) / 2;
+      if (nums[mid] == target)
+        return mid;
+      else if (nums[mid] >= nums[start])  // First half is sorted.
+      {
+        if (target >= nums[start] && target < nums[mid])
+          end = mid - 1;
+        else
+          start = mid + 1;
+      } else {  // second half is sorted
+        if (target <= nums[end] && target > nums[mid])
+          start = mid + 1;
+        else
+          end = mid - 1;
+      }
+    }
+    return -1;
+  }
+};
+
+void test_search_in_rotated_array() {
+  Solution_33 s;
+  /*
+  TODO
+  [4,5,6,7,0,1,2]
+0
+[4,5,6,7,0,1,2]
+2
+[4,5,6,7,0,1,2]
+4
+[4,5,6,7,0,1,2]
+5
+[4,5,6,7,0,1,2]
+1
+[4,5,6,7,0,1,2]
+10
+[3, 1]
+1
+[3, 1]
+3
+  */
+  CHECK(s.search({4, 5, 6, 7, 0, 1, 2}, 2), 6);
+  PRINT_MSG;
+}

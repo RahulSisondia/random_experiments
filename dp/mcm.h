@@ -290,6 +290,11 @@ int burst_balloon(vector<int> v, int i, int j, vector<vector<int>>& dp) {
   for (int k = i; k <= j; k++) {
     int left_cost = burst_balloon(v, i, k - 1, dp);
     int right_cost = burst_balloon(v, k + 1, j, dp);
+    /*
+    Cost of bursting remaining balloons +
+    Cost bursting the left side i to k- 1 balloons +
+    Cost bursting the right side k+1 to j balloons
+    */
     int cost = v[k] * v[i - 1] * v[j + 1] + left_cost + right_cost;
     res = max(res, cost);
   }

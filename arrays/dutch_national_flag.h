@@ -23,7 +23,7 @@ void sort012(vector<int>& a) {
 }
 
 // Driver Code
-void test_ducth_national_flag() {
+void test_dutch_national_flag() {
   std::vector<int> v = {0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1};
   sort012(v);
   CHECK(v, {0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2});

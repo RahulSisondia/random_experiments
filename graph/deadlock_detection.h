@@ -39,12 +39,9 @@ bool isdeadlock(vector<Vertex> graph) {
   stack<pair<Vertex*, state>> s;
   // Vertex& v = graph.front();
   vector<string> topological;
-  /*
-   We could add all nodes with indegree 0 as well.
-   for (auto& c : graph) {
-     if (c.indegree == 0) s.emplace(&c, ENTER);
-   }
-   */
+  for (auto& c : graph) {
+    if (c.indegree == 0) s.emplace(&c, ENTER);
+  }
 
   while (!s.empty()) {
     auto v = s.top();
