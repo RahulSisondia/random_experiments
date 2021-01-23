@@ -1,7 +1,7 @@
 #include "../my_util.h"
 // https://leetcode.com/problems/find-peak-element/
 // https://youtu.be/OINnBJTRrMU
-int peak_element_index(vector<int> v) {
+int peak_element(vector<int> v) {
   int low = 0;
   int high = v.size() - 1;
   /*
@@ -61,12 +61,12 @@ int findPeakElement(vector<int> nums) {
 }
 
 void test_peak_element() {
-  CHECK(peak_element_index({1, 5, 8, 10, 12, 18, 15}), 18);
-  CHECK(peak_element_index({1, 8, 5, 2, 1, 11, 15}), 8);
-  CHECK(peak_element_index({9, 8, 5}), 9);
-  CHECK(peak_element_index({1, 2, 3, 4, 5}), 5);
-  CHECK(peak_element_index({1, 1, 1}), 1);
-  CHECK(peak_element_index({1}), 1);
-  CHECK(peak_element_index({1, 2}), 2);
+  CHECK(peak_element({1, 5, 8, 10, 12, 18, 15}), 18);
+  CHECK(peak_element({1, 8, 5, 2, 1, 11, 15}), 8);
+  CHECK(peak_element({9, 8, 5}), 9);
+  CHECK(peak_element({1, 2, 3, 4, 5}), 5);
+  CHECK(peak_element({1, 1, 1}), 1);
+  CHECK(peak_element({1}), 1);
+  CHECK(peak_element({1, 2}), 2);
   PRINT_MSG;
 }

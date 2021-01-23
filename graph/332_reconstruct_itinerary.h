@@ -91,7 +91,7 @@ class Solution_332 {
 /*
 We have an excellent explanation here.
 https://leetcode.com/problems/reconstruct-itinerary/discuss/897615/C++-DFS-Euler-Walk-O(E-Log-E)-Solution
-Notice the difference the difference int the previous solution, and, here or
+Notice the difference int the previous solution, and, here or
 iterative version of DFS. Here we are processing one child at a time.
 
 • To find the Eulerian path, inspired from the original

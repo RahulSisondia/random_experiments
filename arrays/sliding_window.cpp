@@ -9,5 +9,7 @@ int main() {
   test_longest_unique_k_chars();
   test_longest_unique_substring_length();
   test_longest_max_product();
+  test_smallest_window_containing_substring();
+  test_substring_with_concatenation();
   return 0;
 }

@@ -43,13 +43,25 @@ void test_inorder_successor_with_parent() {
       }
       return itr;
     }
-    // The ancesstor that has key bigger than the current key will be successor
-    // since it is BST
+    /* The ancesstor that has key bigger than the current key will be successor
+       since it is BST.
+    */
     int key = itr->data;
     itr = itr->parent;
     while (itr && key > itr->data) {
       itr = itr->parent;
     }
+    /*
+      Note above strategy works only for BST. What if we were
+      given a binary tree ? Therefore, a better strategy that wil work for BST
+      and binary tree both will be as following:
+        within inputNode's ancestor chain (starting from inputNode all the way
+        up to the root), successorNode is the first parent that has a left child
+        in that chain.
+        while (ancestor != null AND child == ancestor.right):
+        child = ancestor
+        ancestor = child.parent
+    */
     return itr;
   };
   CHECK(using_parent_ptr_in_bst(search(root, 12))->data, 14);

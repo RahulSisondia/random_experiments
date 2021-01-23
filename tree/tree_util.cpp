@@ -205,11 +205,47 @@ void Binary_tree::level_order_preferred() {
 }
 
 /*
+ This is easier method to do the level order traversal.
+ We keep pushing elements as we do. It just that we print the output in spiral
+ order. So we do by inserting the elements in the current vector.
+*/
+void Binary_tree::spiral_level_order_preferred() {
+  if (m_root == nullptr) return;
+  vector<vector<int>> result;
+  std::queue<shared_ptr<Node>> q;
+  bool l2r = true;
+  q.emplace(m_root);
+  int i = 0;
+  while (q.empty() == false) {
+    int node_count = q.size();
+    vector<int> level(node_count);  // Reserve the size.
+    while (i < node_count) {
+      auto node = q.front();
+      q.pop();
+
+      if (l2r)
+        level[i] = node->data;
+      else
+        level[node_count - 1 - i] = node->data;
+
+      if (node->left) q.push(node->left);
+      if (node->right) q.push(node->right);
+      i++;
+    }
+    i = 0;       // Reset i
+    l2r = !l2r;  // Toggle the flag.
+    result.push_back(level);
+  }
+  CHECK(result, {{40}, {50, 10}, {20, 60}, {80, 55, 30}});
+  PRINT_MSG;
+}
+
+/*
  We change the datastructure from queue to dequeue and we can do spiral order
  traversal as well. This is cool techinique. Only thing is to be careful from
  where to pop and in what order to push the children.
 */
-void Binary_tree::spiral_level_order_preferred() {
+void Binary_tree::spiral_level_order_better() {
   if (m_root == nullptr) return;
   vector<vector<int>> result;
 
@@ -260,6 +296,7 @@ int main() {
   bt.level_order_print_by_counting();
   bt.spiral_level_order_print_using_two_stack();
   bt.level_order_preferred();
+  bt.spiral_level_order_better();
   bt.spiral_level_order_preferred();
   return 0;
 }

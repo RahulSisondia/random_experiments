@@ -271,6 +271,26 @@ void test_palindromic_partitioning() {
 }
 /*
 https://leetcode.com/problems/burst-balloons/
+You are given n balloons, indexed from 0 to n - 1. Each balloon is painted with
+a number on it represented by an array nums. You are asked to burst all the
+balloons.
+
+If you burst the ith balloon, you will get nums[i - 1] * nums[i] * nums[i + 1]
+coins. If i - 1 or i + 1 goes out of bounds of the array, then treat it as if
+there is a balloon with a 1 painted on it.
+
+Return the maximum coins you can collect by bursting the balloons wisely.
+
+
+
+Example 1:
+
+Input: nums = [3,1,5,8]
+Output: 167
+Explanation:
+nums = [3,1,5,8] --> [3,5,8] --> [3,8] --> [8] --> []
+coins =  3*1*5    +   3*5*8   +  1*3*8  + 1*8*1 = 167
+
 This is similar to mcm. Only hard part part is to get the calculations of
 bursting balloons right
 // 1,3,2,3,4,5,6,7,1
@@ -311,6 +331,64 @@ int burst_balloon(vector<int> v) {
 }
 void test_burst_balloon() {
   vector<int> v = {3, 1, 5, 8};
-  PRINT(burst_balloon(v));
+  CHECK(burst_balloon(v), 167);
+  PRINT_MSG;
+}
+
+/*
+Given a non-empty string s and a dictionary wordDict containing a list of
+non-empty words, determine if s can be segmented into a space-separated sequence
+of one or more dictionary words.
+
+Note:
+
+The same word in the dictionary may be reused multiple times in the
+segmentation. You may assume the dictionary does not contain duplicate words.
+Example 1:
+
+Input: s = "leetcode", wordDict = ["leet", "code"]
+Output: true
+Explanation: Return true because "leetcode" can be segmented as "leet code".
+Example 2:
+
+Input: s = "applepenapple", wordDict = ["apple", "pen"]
+Output: true
+Explanation: Return true because "applepenapple" can be segmented as "apple pen
+apple". Note that you are allowed to reuse a dictionary word.
+
+Also have a look next problem - https://leetcode.com/problems/word-break-ii/
+*/
+class Solution_139 {
+ public:
+  bool wordBreak(const string s, const vector<string>& wordDict) {
+    for (auto word : wordDict) {
+      dict.emplace(word);
+    }
+    int n = s.size();
+    vector<int> dp(n + 1, -1);
+    return word_break(s, dp);
+  }
+
+ private:
+  unordered_set<string> dict;
+  bool word_break(string s, vector<int>& dp) {
+    if (s.empty()) return true;
+    int n = s.size();
+    if (dp[n] != -1) return dp[n];
+    bool ret = false;
+    for (int i = 0; i < s.size(); i++) {
+      if (dict.count(s.substr(0, i + 1)) && word_break(s.substr(i + 1), dp)) {
+        ret = true;
+        break;
+      }
+    }
+    dp[n] = ret ? 1 : 0;
+    return ret;
+  }
+};
+
+void test_word_break() {
+  Solution_139 s;
+  CHECK(s.wordBreak("applepenapple", {"apple", "pen"}), true);
   PRINT_MSG;
 }

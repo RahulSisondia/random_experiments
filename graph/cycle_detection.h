@@ -33,7 +33,8 @@ Output: [0]
 
 /*
  We learn to  print the path and detect cycle using topological sort.
- I implemented both
+ I implemented both.  Refer Alien dictionary code, there I choose visisted
+ structure as map. It is simplified further.
 */
 
 class Solution_210 {
@@ -68,6 +69,12 @@ class Solution_210 {
       //[3,1] indicates  1 --> 3
       graph[prerequisites[i][1]].push_back(prerequisites[i][0]);
     }
+    /*
+      when used for topological sort you do a DFS on every nodes. If one of the
+      children is already visited by a previous DFS (colored black). Then it is
+      already pushed in the output vector and so you the dependency is already
+      done.
+    */
     for (int i = 0; i < graph.size(); i++) {
       if (deadlock || visited[i] == 1) {
         // cout << "Cycle detected \n";
@@ -85,14 +92,14 @@ class Solution_210 {
    Solution#2 is iterative DFS approach. It is using indegree approach. It is
    relatively simple. Just do the usual topplogical sort. If the size of the
    result set is not as expected that means there were a cycle.
-   Note - We don't have to have seperate visited structure.
-   Node - We could use BFS as well.
-   What if we would need to detect the nodes where the cycyle discovered?
-   In that I would have preferred the iterative approach in the
-   deadlock_detection.h
+   Note#1 - We don't have to have seperate visited structure.
+   Note#2 - We could use BFS as well. Why does the queue work? Because we are
+   adding only children who have no incoming edge. What if we would need to
+   detect the nodes where the cycyle discovered? In that I would have preferred
+   the iterative approach in the deadlock_detection.h
   */
-  vector<int> findOrder_indegree(int numCourses,
-                                 vector<vector<int>>& prerequisites) {
+  vector<int> findOrder_indegree_dfs(int numCourses,
+                                     vector<vector<int>>& prerequisites) {
     vector<vector<int>> graph(numCourses);
     vector<int> result;
     vector<int> indegree(numCourses, 0);
@@ -120,6 +127,35 @@ class Solution_210 {
     if (result.size() != numCourses) result.clear();
     return result;
   }
+  vector<int> findOrder_indegree_bfs(int numCourses,
+                                     vector<vector<int>>& prerequisites) {
+    vector<vector<int>> graph(numCourses);
+    vector<int> result;
+    vector<int> indegree(numCourses, 0);
+    for (int i = 0; i < prerequisites.size(); i++) {
+      // [3,1] indicates  1 --> 3
+      graph[prerequisites[i][1]].push_back(prerequisites[i][0]);
+      indegree[prerequisites[i][0]]++;
+    }
+    queue<int> q;
+    for (int i = 0; i < indegree.size(); i++) {
+      if (indegree[i] == 0) q.push(indegree[i]);
+    }
+
+    while (q.empty() == false) {
+      int node = q.front();
+      q.pop();
+      result.push_back(node);
+      for (int i = 0; i < graph[node].size(); i++) {
+        indegree[graph[node][i]]--;
+        if (indegree[graph[node][i]] == 0) q.push(graph[node][i]);
+      }
+    }
+    // If size of the result is not same as number of vertices then we have
+    // cycle.
+    if (result.size() != numCourses) result.clear();
+    return result;
+  }
 };
 
 void test_course_schedule_210() {
@@ -127,11 +163,12 @@ void test_course_schedule_210() {
   Solution_210 s;
   // numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]
   CHECK(s.findOrder(4, prerequisites), {0, 2, 1, 3});
-  CHECK(s.findOrder_indegree(4, prerequisites), {0, 2, 1, 3});
+  CHECK(s.findOrder_indegree_dfs(4, prerequisites), {0, 2, 1, 3});
+  CHECK(s.findOrder_indegree_bfs(4, prerequisites), {0, 1, 2, 3});
   // Cycle test
   prerequisites.push_back({1, 3});
   CHECK(s.findOrder(4, prerequisites), {});
-  CHECK(s.findOrder_indegree(4, prerequisites), {});
+  CHECK(s.findOrder_indegree_dfs(4, prerequisites), {});
   PRINT_MSG;
 }
 
@@ -192,7 +229,7 @@ words[i] consists of only lowercase English letters.
  return pair to indicate if insert was successful or not. I ended up spending
  hours debudding the problem. C++17 added insert_or_assign() for this problem.
 
- 2. We can use either BFS/DFS if we user incoming edge techinique.
+ 2. We can use either BFS/DFS if we use incoming edge techinique.
  3. With coloring technique we can use DFS.
     If key is not found in the visisted map that indicates white color.
     If key is found with false then indicates Grey color
@@ -247,7 +284,7 @@ class Solution_269 {
   bool dfs(char c) {
     if (visited.find(c) != visited.end()) return visited[c];
 
-    visited[c] = false;
+    visited[c] = false;  // equivalant to Grey
 
     unordered_set<char>& children = graph[c];
     for (auto child : children) {
@@ -256,7 +293,7 @@ class Solution_269 {
         return false;
       }
     }
-    visited[c] = true;
+    visited[c] = true;  // equivalant to Black
     output += c;
     return true;
   }

@@ -10,5 +10,6 @@ int main() {
   test_scrambled_strings();
   test_paint_house();
   test_burst_balloon();
+  test_word_break();
   return 0;
 }

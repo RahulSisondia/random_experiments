@@ -71,9 +71,10 @@ class Binary_tree {
   void level_order_print();
   void level_order_print_by_counting();
   void level_order_preferred();
+  void spiral_level_order_preferred();
   void spiral_level_order_print_by_counting();
   void spiral_level_order_print_using_two_stack();
-  void spiral_level_order_preferred();
+  void spiral_level_order_better();
 
  private:
   void insert(int key, shared_ptr<Node> leaf);

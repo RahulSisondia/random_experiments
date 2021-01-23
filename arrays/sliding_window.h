@@ -439,3 +439,150 @@ void test_longest_max_product() {
   CHECK(longest_max_product({-2, 0, -1}), 0);
   PRINT_MSG;
 }
+
+/*
+https://leetcode.com/problems/minimum-window-substring/
+Given two strings s and t, return the minimum window in s which will contain all
+the characters in t. If there is no such window in s that covers all characters
+in t, return the empty string "".
+
+Note that If there is such a window, it is guaranteed that there will always be
+only one unique minimum window in s.
+
+Example 1:
+
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Example 2:
+
+Input: s = "a", t = "a"
+Output: "a"
+*/
+class Solution_76 {
+ public:
+  string minWindow(string s, string t) {
+    unordered_map<char, int> fm;
+    for (auto ch : t) {
+      fm[ch]++;
+    }
+    string result;
+    int matched = 0;
+    int k = t.size();
+    int min_len = INT_MAX;
+    int len = 0;
+    int start_index = -1;
+    for (int left = 0, right = 0; right < s.size(); right++) {
+      if (fm.count(s[right])) {
+        fm[s[right]]--;
+        if (fm[s[right]] >= 0) matched++;
+      }
+
+      while (matched == k) {
+        len = right - left + 1;
+        if (min_len > len) {
+          min_len = len;
+          // Also keep track of the starting index of the substr
+          start_index = left;
+        }
+        // Shrink the window
+        if (fm.find(s[left]) != fm.end()) {
+          /* This is important: Due to char repeation in the source string, map
+           * may containt -ve values. Keep on shrinking the window unless the
+           * count of a particual char becomes 0 */
+          if (fm[s[left]] == 0) {
+            matched--;
+          }
+          fm[s[left]]++;  // Add the left char in the window.
+        }
+        left++;
+      }
+    }
+    if (start_index != -1) {
+      result = s.substr(start_index, min_len);
+    }
+    return result;
+  }
+};
+
+void test_smallest_window_containing_substring() {
+  Solution_76 s;
+  CHECK(s.minWindow("aabdec", "abc"), std::string("abdec"));
+  CHECK(s.minWindow("aabdecc", "abcc"), std::string("abdecc"));
+  CHECK(s.minWindow("abdabca", "abc"), std::string("abc"));
+  CHECK(s.minWindow("adcad", "abc"), std::string(""));
+  CHECK(s.minWindow("aa", "aa"), std::string("aa"));
+  PRINT_MSG;
+}
+
+/*
+30. Substring with Concatenation of All Words.
+
+You are given a string s and an array of strings words of the same length.
+Return all starting indices of substring(s) in s that is a concatenation of each
+word in words exactly once, in any order, and without any intervening
+characters.
+
+You can return the answer in any order.
+
+Example 1:
+
+Input: s = "barfoothefoobarman", words = ["foo","bar"]
+Output: [0,9]
+Explanation: Substrings starting at index 0 and 9 are "barfoo" and "foobar"
+respectively. The output order does not matter, returning [9,0] is fine too.
+*/
+/*
+ Interesting problem.  The first intution is to solve by recursion.
+ In fact here is the recursive solution :
+ https://duncan-mcardle.medium.com/leetcode-problem-30-substring-with-concatenation-of-all-words-javascript-2030111694e5
+
+ We need to observe carefully the inputs. If they are in the form of substr
+ then chances are sliding window technique will apply.
+ It also gives different perspective since we we don't use the left pointer
+ here. Instead substr are formed using the dictionay words. We also need another
+ map the keep track if the words are visisited or not.
+
+  O(N * M * Len)O(N∗M∗Len)
+*/
+class Solution_30 {
+ public:
+  vector<int> findSubstring(const string s, const vector<string>& words) {
+    unordered_map<string, int> fm;  // Frequency Map
+    int words_count = 0;
+    for (auto word : words) {
+      fm[word]++;
+      words_count++;
+    }
+    int word_len = words[0].size();
+    vector<int> result;
+    //"wordgoodgoodgoodbestword"
+    for (int r = 0 /* right */; r <= s.size() - word_len * words_count; r++) {
+      unordered_map<string, int> visited;
+      for (int wi = 0 /* word index */; wi < words_count; wi++) {
+        int index = r + wi * word_len;
+        string word = s.substr(index, word_len);
+        if (fm.count(word) == 0) break;  // Not found.
+        visited[word]++;
+        if (visited[word] > fm[word]) break;  // found more than desired
+
+        if (wi + 1 == words_count) {
+          result.push_back(r);
+        }
+      }
+    }
+    return result;
+  }
+};
+
+void test_substring_with_concatenation() {
+  Solution_30 sol;
+  CHECK(sol.findSubstring("barfoothefoobarman", {"foo", "bar"}), {0, 9});
+  CHECK(sol.findSubstring("barfoothefoobarman", {"foo", "baz"}), {});
+  CHECK(sol.findSubstring("barfoothefoobarman", {"baz"}), {});
+  CHECK(sol.findSubstring("catfoxcat", {"cat", "fox"}), {0, 3});
+  CHECK(sol.findSubstring("c", {"c"}), {0});
+  CHECK(sol.findSubstring("wordgoodgoodgoodbestword",
+                          {"word", "good", "best", "word"}),
+        {});
+  PRINT_MSG;
+}

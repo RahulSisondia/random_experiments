@@ -77,16 +77,19 @@ int knapsack_top_down(vector<int> value, vector<int> weight, int W, int n) {
     10  3   |   2 | 0  1  1  10 11 11 11 11 11 11
     3   5   |   3 | 0  1  1  10 11 11 11 11 11 11
     12  6   V   4 | 0  1  1  10 11 11 12 13 13 22
-
+https://youtu.be/8LusJS5-AGo?t=378
 */
 int knapsack_bottom_up(vector<int> value, vector<int> weight, int W, int n) {
   vector<vector<int>> matrix(n + 1, std::vector<int>(W + 1, 0));
   for (int i = 1; i <= n; i++) {
     for (int w = 1; w <= W; w++) {
       if (weight[i - 1] <= w) {
-        matrix[i][w] =
-            std::max((value[i - 1] + matrix[i - 1][w - weight[i - 1]]),
-                     matrix[i - 1][w]);
+        matrix[i][w] = std::max((value[i - 1] /* Included the item */ +
+                                 /* For the remaining weight we need to look at
+                                    previous row to fetch the remaining cost */
+                                 matrix[i - 1][w - weight[i - 1]]),
+                                /* We don't chose the current element */
+                                matrix[i - 1][w]);
       } else {
         matrix[i][w] = matrix[i - 1][w];
       }

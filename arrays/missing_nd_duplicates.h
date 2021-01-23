@@ -64,8 +64,9 @@ pair<vector<int>, vector<int>> find_all_missing_duplicate_elements(
     vector<int> v) {
   int i = 0;
   while (i < v.size()) {
-    if (v[i] != v[v[i] - 1]) {
-      swap(v[i], v[v[i] - 1]);
+    int j = v[i] - 1;
+    if (v[i] != v[j]) {
+      swap(v[i], v[j]);
     } else
       i++;
   }
