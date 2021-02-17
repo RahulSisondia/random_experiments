@@ -118,7 +118,9 @@ vector<string> find_all_anagrams_better(const string str,
   }
 
   // global counter. It keeps track of the window. If all
-  // chars are included then its count befomes 0
+  // chars are included then its count befomes 0.
+  // We need to keep track of elcment when they are inserted first in the fm.
+  // Therefore, it is OK to check the size of the map.
   int gc = fm.size();
 
   int k = pattern.size();  // Window Size
@@ -474,7 +476,8 @@ class Solution_76 {
     for (int left = 0, right = 0; right < s.size(); right++) {
       if (fm.count(s[right])) {
         fm[s[right]]--;
-        if (fm[s[right]] >= 0) matched++;
+        if (fm[s[right]] >= 0)  // First difference with anagram problem.  >
+          matched++;
       }
 
       while (matched == k) {
@@ -486,13 +489,14 @@ class Solution_76 {
         }
         // Shrink the window
         if (fm.find(s[left]) != fm.end()) {
-          /* This is important: Due to char repeation in the source string, map
-           * may containt -ve values. Keep on shrinking the window unless the
-           * count of a particual char becomes 0 */
+          /* Since we shall remove the element from left, decrease the matched
+           * count. This is important to add the check: Due to char repeation in
+           * the source string, map may containt -ve values. Keep on shrinking
+           * the window unless the count of a particual char becomes 0 */
           if (fm[s[left]] == 0) {
             matched--;
           }
-          fm[s[left]]++;  // Add the left char in the window.
+          fm[s[left]]++;  // Remove the left char from the window.
         }
         left++;
       }

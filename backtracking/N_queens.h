@@ -24,6 +24,14 @@ on each column on what works out. This solution prints all possible
 arangements, we could easily modify if we were to validate an already filled
 board.
 */
+/*
+ In the interview, I would rather draw a box and then check in_valid in four
+ steps.
+ is_row_valid() ==> g[r--][c]
+ is_col_valid() ==> g[r][c--]
+ is_uppper_diagnoal ==> g[r--][c--]
+ is_lower_diaginal ==> g[r++][c--]
+*/
 void SolveNQueens(int n, int row, vector<int>* col_placement,
                   vector<vector<int>>* result) {
   if (row == n) {
@@ -51,5 +59,60 @@ vector<vector<int>> NQueens(int n) {
 
 void test_NQueens() {
   CHECK(NQueens(4), {{1, 3, 0, 2}, {2, 0, 3, 1}});
+  PRINT_MSG;
+}
+
+/*
+ We can initialize the board as
+   vector<string> board(n,string(n,'.'));
+
+ We run the recursion from the first row. In each row we try to place the
+ the queen.
+ here we are placing the queens row wise
+*/
+class Solution_51 {
+ public:
+  vector<vector<string>> ret;
+  bool is_valid(vector<string>& board, int row, int col) {
+    // check col
+    for (int i = row; i >= 0; --i)
+      if (board[i][col] == 'Q') return false;
+    // check left diagonal
+    for (int i = row, j = col; i >= 0 && j >= 0; --i, --j)
+      if (board[i][j] == 'Q') return false;
+    // check right diagonal
+    for (int i = row, j = col; i >= 0 && j < board.size(); --i, ++j)
+      if (board[i][j] == 'Q') return false;
+    return true;
+  }
+  void dfs(vector<string>& board, int row) {
+    // exit condition
+    if (row == board.size()) {
+      ret.push_back(board);
+      return;
+    }
+    // iterate every possible position
+    for (int i = 0; i < board.size(); ++i) {
+      if (is_valid(board, row, i)) {
+        // make decision
+        board[row][i] = 'Q';
+        // next iteration
+        dfs(board, row + 1);
+        // back-tracking
+        board[row][i] = '.';
+      }
+    }
+  }
+  vector<vector<string>> solveNQueens(int n) {
+    // return empty if n <= 0
+    if (n <= 0) return {{}};
+    vector<string> board(n, string(n, '.'));
+    dfs(board, 0);
+    return ret;
+  }
+};
+
+void test_NQueens_51() {
+  Solution_51 s;
   PRINT_MSG;
 }

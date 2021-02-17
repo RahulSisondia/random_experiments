@@ -1,29 +1,27 @@
-#include "../my_util.h"
 #include <limits.h>
+
+#include "../my_util.h"
 using namespace std;
 
 /*
   https://courses.engr.illinois.edu/cs473/sp2011/Lectures/08_handout.pdf
   https://www.techiedelight.com/longest-increasing-subsequence-using-dynamic-programming/
 */
-int lis_rec(vector<int> v, int i, int prev)
-{
-	// Base case: nothing is remaining
-	if (i == v.size())
-		return 0;
+int lis_rec(vector<int> v, int i, int prev) {
+  // Base case: nothing is remaining
+  if (i == v.size()) return 0;
 
-	// case 1: exclude the current element and process the
-	// remaining elements
-	int excl = lis_rec(v, i + 1, prev);
+  // case 1: exclude the current element and process the
+  // remaining elements
+  int excl = lis_rec(v, i + 1, prev);
 
-	// case 2: include the current element if it is greater
-	// than previous element in LIS
-	int incl = 0;
-	if (v[i] > prev)
-		incl = 1 + lis_rec(v, i + 1, v[i]);
+  // case 2: include the current element if it is greater
+  // than previous element in LIS
+  int incl = 0;
+  if (v[i] > prev) incl = 1 + lis_rec(v, i + 1, v[i]);
 
-	// return maximum of above two choices
-	return max(incl, excl);
+  // return maximum of above two choices
+  return max(incl, excl);
 }
 
 int lis_top_down_util(vector<int> v, int i, int prev,
@@ -43,7 +41,7 @@ int lis_top_down_util(vector<int> v, int i, int prev,
 
   // return maximum of above two choices
   int result = max(incl, excl);
-  pair<int, int> p;
+  pair<int, int> p = {i, prev};
   dp.emplace(p, result);
   return result;
 }
@@ -65,7 +63,9 @@ int lis_top_down(vector<int> v, int i, int prev) {
 // main function
 int main() {
   CHECK(lis_rec({10, 22, 9, 33}, 0, INT_MIN), 3);
-  CHECK(lis_rec({ 0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15 }, 0, INT_MIN), 6);
+  CHECK(lis_rec({0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15}, 0,
+                INT_MIN),
+        6);
   CHECK(lis_top_down({0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15}, 0,
                      INT_MIN),
         6);

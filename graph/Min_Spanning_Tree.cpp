@@ -36,8 +36,6 @@ Legend:
 +					          +
 |		6			          |
 +--------------------+
-
-
 */
 
 void build_graph() {
@@ -70,8 +68,8 @@ void build_graph() {
   //adj[2].emplace_back(6, 1);
 
   // Initialize the Visited Array as per the number of vertices
-  visisted.resize(adj.size());
-  fill(visisted.begin(), visisted.end(), false);
+  visited.resize(adj.size());
+  fill(visited.begin(), visited.end(), false);
 }
 int main() {
   // Selecting 1 as the starting node

@@ -25,7 +25,10 @@ map<int, P> shortest_path(std::vector<vector<P>> graph, int source) {
     auto edge = min_heap.top();
     min_heap.pop();
     // if we need to find path specific to a target then check and break here
+    
+    // It is important to add this check. Since we are pulling the node from PQ. 
     if (visited.find(edge.node) != visited.end()) continue;
+    
     // cout << edge.node << endl;
     for (auto nghbr : graph[edge.node]) {
       if (visited.find(nghbr.first) == visited.end()) {

@@ -12,13 +12,13 @@ void generate(vector<string> trans, string digits, int deep, string& res,
   for (size_t i = 0; i < trans[digit].size(); i++) {
     res.push_back(trans[digit][i]);
     generate(trans, digits, deep + 1, res, set);
-    res.resize(res.size() - 1);
+    // res.resize(res.size() - 1); or pop_back
+    res.pop_back();
   }
 }
 vector<string> combinations(string digit) {
   vector<string> trans = {"",    "",    "abc",  "def", "ghi",
                           "jkl", "mno", "pqrs", "tuv", "wxyz"};
-
   int deep = 0;
   vector<string> set;
   string result;

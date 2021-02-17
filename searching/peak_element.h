@@ -60,6 +60,32 @@ int findPeakElement(vector<int> nums) {
   return nums.size() - 1;
 }
 
+/*
+Recursive solution is so easy to implement:
+
+If the middle element, midmid lies in an ascending sequence of numbers, or a
+rising slope(found by comparing nums[i]nums[i] to its right neighbour), it
+obviously implies that the peak lies towards the right of this element. Thus, we
+reduce the search space to the right of midmid and perform the same process on
+the right subarray.
+
+In this way, we keep on reducing the search space till we eventually reach a
+state where only one element is remaining in the search space. This single
+element is the peak element.
+*/
+class Solution_162 {
+ public:
+  int findPeakElement(vector<int> nums) {
+    return search(nums, 0, nums.size() - 1);
+  }
+  int search(vector<int>& nums, int l, int r) {
+    if (l == r) return l;
+    int mid = (l + r) / 2;
+    if (nums[mid] > nums[mid + 1]) return search(nums, l, mid);
+    return search(nums, mid + 1, r);
+  }
+};
+
 void test_peak_element() {
   CHECK(peak_element({1, 5, 8, 10, 12, 18, 15}), 18);
   CHECK(peak_element({1, 8, 5, 2, 1, 11, 15}), 8);

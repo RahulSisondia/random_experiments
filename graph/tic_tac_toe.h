@@ -91,7 +91,7 @@ class TicTacToe_bfs {
 };
 /*
 Lessons:
-1.  Actually solutio os much simpler that it seems to be at first.
+1.  Actually solution is much simpler that it seems to be at first.
   We just need to imagine that for each player we just need to keep track of the
   sum for each row, colum and diagnols.
 2. how to keep track of right diagnoal?

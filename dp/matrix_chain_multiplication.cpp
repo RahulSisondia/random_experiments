@@ -11,5 +11,6 @@ int main() {
   test_paint_house();
   test_burst_balloon();
   test_word_break();
+  test_word_break_II();
   return 0;
 }

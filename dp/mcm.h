@@ -294,8 +294,8 @@ coins =  3*1*5    +   3*5*8   +  1*3*8  + 1*8*1 = 167
 This is similar to mcm. Only hard part part is to get the calculations of
 bursting balloons right
 // 1,3,2,3,4,5,6,7,1
-//   ^           ^
-//   i           j
+//   ^     ^     ^
+//   i     k     j
 */
 int burst_balloon(vector<int> v, int i, int j, vector<vector<int>>& dp) {
   if (i > j) return 0;
@@ -390,5 +390,153 @@ class Solution_139 {
 void test_word_break() {
   Solution_139 s;
   CHECK(s.wordBreak("applepenapple", {"apple", "pen"}), true);
+  PRINT_MSG;
+}
+
+/*
+Given a non-empty string s and a dictionary wordDict containing a list of
+non-empty words, add spaces in s to construct a sentence where each word is a
+valid dictionary word. Return all such possible sentences.
+
+Note:
+
+The same word in the dictionary may be reused multiple times in the
+segmentation. You may assume the dictionary does not contain duplicate words.
+Example 1:
+
+Input:
+s = "catsanddog"
+wordDict = ["cat", "cats", "and", "sand", "dog"]
+Output:
+[
+  "cats and dog",
+  "cat sand dog"
+]
+Example 2:
+
+Input:
+s = "pineapplepenapple"
+wordDict = ["apple", "pen", "applepen", "pine", "pineapple"]
+Output:
+[
+  "pine apple pen apple",
+  "pineapple pen apple",
+  "pine applepen apple"
+]
+Explanation: Note that you are allowed to reuse a dictionary word.
+Example 3:
+
+Input:
+s = "catsandog"
+wordDict = ["cats", "dog", "sand", "and", "cat"]
+Output:
+[]
+*/
+/*
+
+class Solution_brute_force {
+ public:
+  vector<string>  wordBreak(const string s, const vector<string>& wordDict) {
+
+    if(s.empty()) return result;
+
+    for (auto word : wordDict) {
+      dict.emplace(word);
+    }
+
+    vector<string> current;
+    word_break(s, 0, current);
+    return result;
+  }
+
+ private:
+  unordered_set<string> dict;
+  vector<string> result;
+  void word_break(const string& s, int pos, vector<string>& current) {
+
+    if (pos == s.size()) {
+        string res;
+        for(int i=0; i< current.size()-1; i++) {
+            res += current[i] + " ";
+        }
+        res += current.back();
+        result.push_back(res);
+        return;
+    }
+
+    for (int i = pos; i < s.size(); i++) {
+      string lstr = s.substr(pos, i-pos+1);
+       //cout << "substr " << lstr << endl;
+      if (dict.count(lstr)){
+         // cout << " found " << lstr << endl;
+          current.push_back(lstr);
+          word_break(s, i+1, current);
+          current.pop_back();
+      }
+    }
+  }
+};
+
+  We were solving the subproblems repeatedly in the above bruteforce solution.
+  for instance :
+  "catsanddog"  -->  (1) cat|s|anddog  (2) cats|anddog
+   here we solve anddog two times.
+   how about we cache the subproblem results.
+
+   dog -> dog
+   anddog -> and, dog
+
+  Learnings:
+  Recursive Solution gives TLE. But realize that we are solving the
+  subproblems repeatedly in the above bruteforce solution.
+  for instance :
+  "catsanddog"  -->  (1) cat|s|anddog  (2) cats|anddog
+   here we solve anddog two times.
+   how about we cache the subproblem results.
+
+   dog -> dog
+   anddog -> and, dog
+
+*/
+class Solution_140 {
+ public:
+  vector<string> wordBreak(const string s, const vector<string>& wordDict) {
+    if (s.empty()) return vector<string>{};
+
+    for (auto word : wordDict) {
+      dict.emplace(word);
+    }
+    return word_break(s);
+  }
+
+ private:
+  unordered_set<string> dict;
+  unordered_map<string, vector<string>> dp;
+
+  vector<string> word_break(string s) {
+    if (dp.count(s)) return dp[s];
+
+    vector<string> result;
+
+    if (dict.count(s)) result.push_back(s);
+
+    for (int len = 1; len < s.size(); len++) {
+      string lstr = s.substr(0, len);
+      if (dict.count(lstr)) {
+        auto words = word_break(s.substr(len));
+        for (auto word : words) {
+          result.push_back(lstr + " " + word);
+        }
+      }
+    }
+    dp[s] = result;
+    return result;
+  }
+};
+
+void test_word_break_II() {
+  Solution_140 s;
+  CHECK(s.wordBreak("catsanddog", {"cat", "cats", "and", "sand", "dog"}),
+        {{"cat sand dog"}, {"cats and dog"}});
   PRINT_MSG;
 }

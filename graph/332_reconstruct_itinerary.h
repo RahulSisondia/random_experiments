@@ -35,7 +35,7 @@ Expected:
 ["JFK","NRT","JFK","KUL"]
 
 The above outout is wrong since KUL, NRT means we have a ticket from KUL to NRT
-but that's not the case. Problem asks to visist all the cities. Hence, expected
+but that's not the case. Problem asks to visit all the cities. Hence, expected
 output is correct :-( .
 Therefore, if we go KUL then we are stuck there. Why does
 it produce outut like that ?? There are two reasons :
@@ -44,7 +44,7 @@ it produce outut like that ?? There are two reasons :
  - Since it is BFS, I am processing all children together.
 
 It means we have to try all possible route and print once found a
-vlid route i.e. backtracking which requires recursion hence DFS based solution
+valid route i.e. backtracking which requires recursion hence DFS based solution
 would do.
 */
 
@@ -91,7 +91,7 @@ class Solution_332 {
 /*
 We have an excellent explanation here.
 https://leetcode.com/problems/reconstruct-itinerary/discuss/897615/C++-DFS-Euler-Walk-O(E-Log-E)-Solution
-Notice the difference int the previous solution, and, here or
+Notice the difference in the previous solution, and, here or
 iterative version of DFS. Here we are processing one child at a time.
 
 • To find the Eulerian path, inspired from the original
@@ -121,10 +121,16 @@ class Solution_332_euler_path {
     st.push("JFK");
     while (!st.empty()) {
       string curr = st.top();
+      // Notice, here, we didn't pop the curr from the stack yet. That we
+      // usually do in DFS or Topological sort.
       if (graph[curr].size() == 0) {
         ans.push_back(curr);
-        st.pop();
+        st.pop();  // We pop the node now since there is no more outgoing edges
+                   // to it.
       } else {
+        // This is the first node in lexicograohical order. We don't add any
+        // more children here instead, process it first. it is kind of mimicking
+        // the recursive DFS.
         auto dest = graph[curr].begin();
         st.push(*dest);
         graph[curr].erase(dest);
@@ -134,7 +140,14 @@ class Solution_332_euler_path {
     return ans;
   }
 };
-
+/*
+Reconstruct Itinerary solution comes from Euler walk (visit each edge only once)
+where we choose edge whose destination node is lexicographically smaller. Push
+node in to result vector while all its edges are already visited which insures
+that lexical smaller nodes are inserted first in to result vector. Finally our
+itenary order will be the reverse of the result vector as node that finished
+first are inserted first in the result vector and it is lexically smaller.
+*/
 class Solution332_euler_path_recursive_DFS {
  public:
   // itenary list

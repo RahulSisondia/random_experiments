@@ -1,7 +1,5 @@
 // PrintMaxA.cpp : Defines the entry point for the console application.
 // https://www.geeksforgeeks.org/how-to-print-maximum-number-of-a-using-given-four-keys/
-
-#include "stdafx.h"
 #include <vector>
 
 using namespace std;

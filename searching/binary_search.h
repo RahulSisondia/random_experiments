@@ -30,11 +30,11 @@ int find_min_diff_with_given_key(vector<int> v, int key) {
     diff = abs(v[high] - key);
   else if (high < 0)
     /* Edge case
-+++ k= 10  +++
+      +++ k= 10+++
         |        |
         V        V
         11      14
-    low, high
+        low,    high
     */
     diff = abs(v[low] - key);
   else
@@ -146,8 +146,8 @@ void test_allocate_pages() {
 
 int count_rotations(const vector<int>& v) {
   int start = 0;
-  int end = v.size();
   const int N = v.size();
+  int end = N - 1;
   while (start <= end) {
     int mid = start + (end - start) / 2;
     int prev = (mid - 1 + N) % N;
@@ -168,14 +168,17 @@ int count_rotations(const vector<int>& v) {
   return 0;
 }
 /*
- This is simpler than the previous implementation.
- We need to compar the mif with the end.
- and include the mid while setting the hi.
- Note :  Following will not work
-  if(nums[mid] > nums[lo]) {
-                lo=mid;
-            } else {
-                hi=mid-1;
+ Here is an intuition for updating the search space boundaries:
+
+If nums[mid] < nums[hi], nums[mid] or some value before it could be our
+inflection point. Therefore, let hi = mid, including mid in our new search
+space. If nums[mid] > nums[hi], nums[mid] cannot be our inflection point.
+Candidates are to the right of it. Let lo = mid + 1, exluding the mid from the
+search space.
+
+This is simpler than the previous implementation. We need to
+compare the mid with the end. and include the mid while setting the hi. Note :
+Following will not work if(nums[mid] > nums[lo]) { lo=mid; } else { hi=mid-1;
             }
 Because if you replace the "return nums[lo]" to "return nums[hi]", you will get
 maximum element instead. "hi =mid-1" will skip the minimum value if nums[mid] =

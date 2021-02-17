@@ -1,6 +1,6 @@
 #include "../my_util.h"
 /*
- This is Topological sort using iteraative approach.
+ This is Topological sort using iterative approach.
 */
 vector<int> topological_sort_indegree(vector<vector<int>> graph) {
   vector<int> result;

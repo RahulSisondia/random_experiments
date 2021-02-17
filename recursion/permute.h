@@ -33,11 +33,11 @@ class Permute {
 
     if (A.empty()) return result;
 
-    vector<bool> visisted(A.size(), false);
+    vector<bool> visited(A.size(), false);
     vector<t> current;
 
     sort(A.begin(), A.end());
-    permute_util(A, visisted, current, result, 0);
+    permute_util(A, visited, current, result, 0);
 
     return result;
   }

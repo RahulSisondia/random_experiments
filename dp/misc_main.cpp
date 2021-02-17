@@ -5,6 +5,7 @@
 int main() {
   test_max_sub_square();
   test_word_wrap();
+  test_justification();
   test_sairecase_746();
   test_dengeon_game_174();
   test_deletion_distance_pramp();

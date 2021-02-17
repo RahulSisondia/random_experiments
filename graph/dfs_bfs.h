@@ -76,18 +76,19 @@ void BFS_util_que(const vector<vector<int>> M, int row, int col,
   queue<std::pair<int, int>> q;
   q.emplace(row, col);
   // Mark this cell as visited
-  visited[row][col] = true;
+  // visited[row][col] = true;
   int temp_row, temp_col;
   while (!q.empty()) {
     auto ret = q.front();
     q.pop();
     count++;
+    visited[ret.first][ret.second] = true;
     for (int k = 0; k < 8; ++k) {
       temp_row = ret.first + rowNbr[k];
       temp_col = ret.second + colNbr[k];
       if (isSafe(M, temp_row, temp_col, visited)) {
         q.emplace(temp_row, temp_col);
-        visited[temp_row][temp_col] = true;
+        // visited[temp_row][temp_col] = true;
       }
     }
   }
@@ -121,11 +122,11 @@ int countIslands(vector<vector<int>> M) {
         ++island_number;  // and increment island count
       }
 
-  CHECK(max_count, 7);  // Maximum number of islands
+  CHECK(max_count, 7);  // Size of biggest island
   return island_number;
 }
 
-// Driver program to test above function
+// Driver program to test above function  
 void test_count_islands() {
   vector<vector<int>> M{{1, 1, 0, 0, 0},
                         {0, 1, 0, 1, 1},

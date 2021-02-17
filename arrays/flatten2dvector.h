@@ -12,6 +12,7 @@ class Vector2D {
   Vector2D(const vector<vector<int>>& v) {
     m_2ditr = v.cbegin();
     m_2ditr_end = v.cend();
+    // Filter our the empty rows from the begining.
     while (m_2ditr != m_2ditr_end && m_2ditr->size() == 0) m_2ditr++;
     if (m_2ditr != m_2ditr_end) m_itr = m_2ditr->cbegin();
   }
@@ -21,7 +22,7 @@ class Vector2D {
       throw "Out of range";
     if (m_itr != m_2ditr->cend()) value = *m_itr++;
     while (m_2ditr != m_2ditr_end && m_itr == m_2ditr->cend()) {
-      m_2ditr++;
+      m_2ditr++;  // Filter out empty rows.
       if (m_2ditr != m_2ditr_end) m_itr = m_2ditr->cbegin();
     }
     return value;

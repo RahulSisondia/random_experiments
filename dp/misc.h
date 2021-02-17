@@ -35,6 +35,7 @@ class Solution {
   int minCostClimbingStairs(const vector<int>& cost) {
     int size = cost.size();
     dp = vector<int>(size, 0);
+    // Since we can start either with staircase 1 or 2 in the beginning.
     return min(minCostClimbingStairs(cost, size - 1),
                minCostClimbingStairs(cost, size - 2));
   }
@@ -77,8 +78,6 @@ contain magic orbs that increase the knight's health (positive integers).
 In order to reach the princess as quickly as possible, the knight decides to
 move only rightward or downward in each step.
 
-
-
 Write a function to determine the knight's minimum initial health so that he is
 able to rescue the princess.
 
@@ -86,8 +85,8 @@ For example, given the dungeon below, the initial health of the knight must be
 at least 7 if he follows the optimal path RIGHT-> RIGHT -> DOWN -> DOWN.
 
 -2 (K)	-3	3
--5	-10	1
-10	30	-5 (P)
+-5    -10	  1
+10	  30	 -5 (P)
 */
 int dungeon_game(const vector<vector<int>>& v) {
   std::function<int(const vector<vector<int>>&, int, int, vector<vector<int>>&)>
@@ -98,7 +97,7 @@ int dungeon_game(const vector<vector<int>>& v) {
           if (v[i][j] < 0)
             return 1 - v[i][j];  //~ abs(v[i][j])+1
           else
-            return 1;
+            return 1;  // We don't need health point.
         }
         if (dp[i][j] != INT_MAX) return dp[i][j];
         int down_min = lambda(v, i + 1, j, dp);

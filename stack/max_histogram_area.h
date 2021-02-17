@@ -105,7 +105,7 @@ int max_rectangle_area_binary_matrix(vector<vector<int>> matrix) {
     }
     area = max_histogram_area(v);
     max_area = max(max_area, area);
-    PRINT(max_area);
+    // PRINT(max_area);
   }
   return max_area;
 }

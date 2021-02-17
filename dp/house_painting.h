@@ -33,9 +33,9 @@ int paint_house(vector<vector<int>> m, int house, int exclude_color) {
   if (house == m.size()) return 0;
   int cost = 0;
   int temp_cost = numeric_limits<int>::max();
-  for (int j = 0; j < m[0].size(); j++) {
-    if (j != exclude_color) {
-      temp_cost = min(temp_cost, m[house][j] + paint_house(m, house + 1, j));
+  for (int c = 0; c < m[0].size(); c++) {
+    if (c != exclude_color) {
+      temp_cost = min(temp_cost, m[house][c] + paint_house(m, house + 1, c));
     }
   }
   cost += temp_cost;
@@ -68,10 +68,10 @@ int paint_house_new(vector<vector<int>> m, int house, int exclude_color) {
   if (house == m.size()) return 0;
   int cost = 0;
   int temp_cost = numeric_limits<int>::max();
-  for (int j = 0; j < m[0].size(); j++) {
-    if (exclude_color == -1 || j != exclude_color)
+  for (int c = 0; c < m[0].size(); c++) {
+    if (c != exclude_color)
       temp_cost =
-          min(temp_cost, m[house][j] + paint_house_new(m, house + 1, j));
+          min(temp_cost, m[house][c] + paint_house_new(m, house + 1, c));
   }
 
   cost += temp_cost;
