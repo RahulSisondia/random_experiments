@@ -2,14 +2,14 @@
 cmake_minimum_required(VERSION 3.16)
 # Do the debug build only
 SET(CMAKE_BUILD_TYPE Debug)
-# Set the  cpp standard to  C++17
+# Set the  cpp standard to  C++20
 
-add_compile_options(-std=c++17 -g -Wall)
-# Enable address Sanitizer. Note it is important to set the flags to compiler and linker both. 
+add_compile_options(-std=c++20 -g -Wall)
+# Enable address Sanitizer. Note it is important to set the flags to compiler and linker both.
 # https://clang.llvm.org/docs/AddressSanitizer.html#how-to-build
 add_compile_options(-fsanitize=address -fno-omit-frame-pointer)
 string(APPEND CMAKE_EXE_LINKER_FLAGS "-fsanitize=address")
-# Set undefined behavior sanitizers 
+# Set undefined behavior sanitizers
 # https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html
 add_compile_options(-fsanitize=undefined,float-divide-by-zero,unsigned-integer-overflow,implicit-conversion,local-bounds,nullability )
 add_compile_options(-fno-sanitize-recover=null -fsanitize-trap=alignment -fno-omit-frame-pointer)
