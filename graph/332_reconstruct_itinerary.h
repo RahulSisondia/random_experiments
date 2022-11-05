@@ -23,8 +23,9 @@ Explanation: Another possible reconstruction is
 ["JFK","SFO","ATL","JFK","ATL","SFO"]. But it is larger in lexical order.
 */
 
-#include "../my_util.h"
+#include <functional>
 
+#include "../my_util.h"
 /*
 This is my first approach to this solution. But it fails for the test case :
 

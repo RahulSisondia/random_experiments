@@ -29,7 +29,7 @@ int min_subset_sum_diff_rec(vector<int> item) {
 }
 
 void min_subset_sum_diff() {
-  std::vector item = {3, 1, 4, 2, 2, 1};
+  std::vector<int> item = {3, 1, 4, 2, 2, 1};
   assert(min_subset_sum_diff_rec(item) == 1);
   cout << "All min subset diff tests passed\n";
 }
@@ -66,7 +66,7 @@ int target_subset_sum_rec(vector<int> item, int target) {
 }
 
 void target_subset_sum() {
-  std::vector item = {3, 1, 3, 5};
+  std::vector<int> item = {3, 1, 3, 5};
   int target = 6;
   assert(target_subset_sum_rec(item, target) == 2);
   assert(target_subset_sum_rec({1, 1, 1, 1, 1}, 3) == 5);

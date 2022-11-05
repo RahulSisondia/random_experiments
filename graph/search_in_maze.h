@@ -68,7 +68,7 @@ vector<pair<int, int>> search_in_maze_bfs(vector<vector<bool>> maze) {
   queue<P> q;
   q.push(source);
   visited[source.first][source.second] = true;
-  auto no_parent = pair{INT_MAX, INT_MAX};
+  auto no_parent = std::pair<int, int>{INT_MAX, INT_MAX};
   parent.emplace(source, no_parent);
   bool target_found = false;
   while (!q.empty()) {
@@ -81,7 +81,7 @@ vector<pair<int, int>> search_in_maze_bfs(vector<vector<bool>> maze) {
     for (auto d : directions) {
       auto row = p.first + d.first;
       auto col = p.second + d.second;
-      auto node = pair{row, col};
+      auto node = std::pair<int, int>{row, col};
       if (is_valid(maze, row, col, visited)) {
         visited[row][col] = true;
         parent.emplace(node, p);

@@ -57,6 +57,6 @@ void test_BST_mode() {
   root->right->left = make_shared<Node>(8);
   root->right->right = make_shared<Node>(9);
   root->right->right->right = make_shared<Node>(9);
-  CHECK(BST_mode(root), pair{9, 3});
+  CHECK(BST_mode(root), std::pair<int, int>{9, 3});
   PRINT_MSG;
 }
