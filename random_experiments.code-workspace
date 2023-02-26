@@ -8,6 +8,10 @@
 		"typescript.tsserver.log": "normal",
 		"markdown.trace": "verbose",
 		"files.associations": {
+			"*.test": "perl",
+			"*.inc": "perl",
+			"*.result": "perl",
+			"*.ic": "cpp",
 			"vector": "cpp",
 			"iosfwd": "cpp",
 			"limits": "cpp",
@@ -100,7 +104,9 @@
 			"valarray": "cpp",
 			"variant": "cpp",
 			"*.ipp": "cpp",
-			"__memory": "cpp"
+			"__memory": "cpp",
+			"__bits": "cpp",
+			"concepts": "cpp"
 		},
 		"C_Cpp.clang_format_fallbackStyle": "Google"
 	}
