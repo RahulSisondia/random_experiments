@@ -49,7 +49,6 @@ class Async_pool {
     signal_to_stop();
     if (m_future_thread.joinable()) {
       m_q_cv.notify_one();
-      std::this_thread::sleep_for(std::chrono::seconds(1));
       m_future_thread.join();
     }
   }
