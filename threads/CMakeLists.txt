@@ -7,5 +7,5 @@ ADD_EXECUTABLE( thread_test ${THD_TEST_SOURCES} )
 
 PROJECT( async_pool )
 SET( ASYNC_POOL_SOURCES
-async_thred_pool.cc)
+async_thread_pool.cc)
 ADD_EXECUTABLE( async_thread_pool ${ASYNC_POOL_SOURCES} )
