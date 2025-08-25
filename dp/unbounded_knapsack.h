@@ -32,8 +32,8 @@ int unbounded_knapsack_for_loop(vector<int> value, vector<int> weight, int W,
   return res;
 }
 
-int unbounded_knapsack_bottom_up(vector<int> value, vector<int> weight, int W,
-                                 int n) {
+int unbounded_knapsack_top_down(vector<int> value, vector<int> weight, int W,
+                                int n) {
   vector<vector<int>> matrix(n + 1, vector<int>(W + 1, 0));
   for (int i = 1; i <= n; i++) {
     for (int j = 1; j <= W; j++) {
@@ -55,7 +55,7 @@ void unbounded_knapsack() {
   int n = value.size();
   CHECK(unbounded_knapsack_rec(value, weight, capacity, n - 1), 30);
   CHECK(unbounded_knapsack_for_loop(value, weight, capacity, n - 1), 30);
-  CHECK(unbounded_knapsack_bottom_up(value, weight, capacity, n), 30);
+  CHECK(unbounded_knapsack_top_down(value, weight, capacity, n), 30);
   cout << "All unbounded knapsack tests passed." << endl;
 }
 
@@ -134,7 +134,9 @@ int min_coin_change_required_rec(vector<int> coins, int target, int n) {
 }
 
 int min_coin_change_required_bottom_up(vector<int> coins, int target, int n) {
-  // Initialize with max() -1 to avoid overflow later on due to adding +1 .
+  // Initialize with max() -1 to avoid overflow later on due to adding +1.
+  // Notice the initialization values
+  // https://youtu.be/I-l6PBeERuc?si=PJl0WCviZWaIblHo
   vector<vector<int>> matrix(
       n + 1, vector<int>(target + 1, numeric_limits<int>::max() - 1));
 

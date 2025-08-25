@@ -5,7 +5,10 @@
 #include "../my_util.h"
 
 /*
- complexity is exponential i.e. Ω(4^n/n^3/2)
+ If n =1 then there is one matrix, thus there is only one way to
+ parenthesize. Otherwise it is recurrence from k=1 to n-1 for each k,
+ P(K) P(n-k). It grows as  Ω(4^n/n^3/2). This could be simplified as
+ Ω(2^n) which is exponential.
 */
 int mcm_rec(vector<int> dims, int i, int j) {
   // i cannot be greater than j of course.
@@ -19,8 +22,17 @@ int mcm_rec(vector<int> dims, int i, int j) {
         mcm_rec(dims, i, k) /* cost of multiplying matrices from i to k */
         +
         mcm_rec(dims, k + 1, j) /* cost of multiplying matrices from k+1 to j */
-        + (dims[i - 1] * dims[k] *
-           dims[j]) /* cost of multiplying the previous two matrices  */;
+        + (dims[i - 1] * dims[k] * dims[j])
+        /* clang-format off
+        cost of multiplying the previous two matrices.
+        10*20*30*40*50
+            i  k     j
+          Suppose i, k, j  are positioned as above.
+          (10*20, 20*30) * (30*40, 40*50) => (10*30) * (30*50) =>
+          (10 * 30 * 50).
+            i-1   k   j
+        clang-format on */
+        ;
     /* Keep track of the minimal cost so far */
     res = min(res, temp_res);
   }
@@ -29,7 +41,7 @@ int mcm_rec(vector<int> dims, int i, int j) {
 
 /**
   dp: to keep track of cost
-  pmat : to keep track of position of k so that we can pring where to put
+  pmat : to keep track of position of k so that we can print where to put
   brackets.
 */
 int mcm_top_down_util(vector<int> dims, int i, int j, vector<vector<int>>& dp,
@@ -58,7 +70,7 @@ int mcm_top_down_util(vector<int> dims, int i, int j, vector<vector<int>>& dp,
       PRINT(dp);
     } */
   }
-  return res;       
+  return res;
 }
 /*
 
@@ -243,8 +255,8 @@ void test_palindromic_partitioning() {
     Number of operations in optimized mem soln : 362
 
   Counting palindrome operations:
-    Number of operations in recursive soln : 432371 -  255224 = 177147 (is_palindromeis called) 
-    Number of operations in memo soln : 935  - 362 = 573  (ispalindrome is called) 
+    Number of operations in recursive soln : 432371 -  255224 = 177147 (is_palindromeis called)
+    Number of operations in memo soln : 935  - 362 = 573  (ispalindrome is called)
     Number of operations in optimized mem soln : 460 - 362 = 98 (is palindrome is called)
   */
   // clang-format on

@@ -57,7 +57,7 @@ Input:[3 1 1 5 3]
 Duplicate = 3,1  Missing = 2,4
 */
 /*
-We could solve the above problem using this swap sort techinique.
+We could solve the above problem using this swap sort technique.
 The only draw back that it has is that it requires input array to be modified.
 */
 pair<vector<int>, vector<int>> find_all_missing_duplicate_elements(

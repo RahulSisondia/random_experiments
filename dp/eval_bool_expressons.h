@@ -125,6 +125,11 @@ int eval_bool_expressions_top_down_util(string str, int i, int j, bool to_eval,
 }
 
 int eval_bool_expressions_top_down(string str, int i, int j, bool to_eval) {
+  /* The data structure for the caching depends on the number of variants.
+  In this case there are three variants on which temporary results depends
+  which are i, j, to_eval. We can create a 3D matrix but that is too cumbersome
+  to imagine and maintain, there we use a map here. We can derive a key from
+  the variants. */
   unordered_map<string, int> dp;
   return eval_bool_expressions_top_down_util(str, i, j, to_eval, dp);
 }

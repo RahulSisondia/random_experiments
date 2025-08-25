@@ -30,6 +30,9 @@ vector<int> topological_sort_indegree(vector<vector<int>> graph) {
   return result;
 }
 
+/*
+Explanation: https://youtu.be/ddTC4Zovtbc?si=3vU6I2HVDe3q03bd
+*/
 void dfs(vector<vector<int>>& graph, int node, unordered_set<int>& visited,
          vector<int>& result) {
   visited.emplace(node);
@@ -39,13 +42,13 @@ void dfs(vector<vector<int>>& graph, int node, unordered_set<int>& visited,
       dfs(graph, graph[node][i], visited, result);
   }
   // Once we processed all children then add the current node as result.
-  result.push_back(node); 
+  result.push_back(node);
 }
 
 vector<int> topological_sort_dfs(vector<vector<int>> graph) {
   vector<int> result;
   unordered_set<int> visited;
-  // Visit all nodes in the gaph
+  // Visit all nodes in the graph(as they could be disconnected as well)
   for (int i = 0; i < graph.size(); i++) {
     if (visited.find(i) == visited.end()) dfs(graph, i, visited, result);
   }
@@ -54,7 +57,7 @@ vector<int> topological_sort_dfs(vector<vector<int>> graph) {
 }
 
 void test_topological_sort() {
-  /* clang-format off */  
+  /* clang-format off */
   /*
       5 -----> 1 --+--> 2
                ^   |
@@ -70,14 +73,14 @@ void test_topological_sort() {
       7
   */
   /* Adjacency list */
-  vector<vector<int>> graph = {{6}, 
+  vector<vector<int>> graph = {{6},
                                {2, 4, 6},
                                {},
-                               {0, 4}, 
+                               {0, 4},
                                {},
                                {1},
                                {},
-                               {}, 
+                               {},
                                {1, 0}};
   /* clang-format off */
   // PRINT_VECTOR(topological_sort_indegree(graph));

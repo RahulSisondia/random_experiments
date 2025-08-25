@@ -19,7 +19,7 @@ int main() {
   test_course_schedule_210();
   test_search_in_maze();
   test_dijkstra();
-  resonstruct_itinerary();
+  reconstruct_itinerary();
   test_transform_string();
   test_count_islands();
   test_count_shortestCellPath();

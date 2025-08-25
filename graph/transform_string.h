@@ -30,6 +30,7 @@ int transform_string(const string& source, const string& target,
   for (auto word : words) {
     dict.emplace(word);
   }
+  /* node, distance from source */
   queue<pair<string, int>> q;
   q.push({source, 0});
   dict.erase(source);
@@ -188,7 +189,7 @@ class Solution_126 {
       // Evaluate all childrens i.e. paths, ladders
       /*
         Gotcha :
-        We have to precalcalculate the size of q
+        We have to pre-calculate the size of q
         since it is getting changed in the loop.
         we could endup in the infinite loop.
        */

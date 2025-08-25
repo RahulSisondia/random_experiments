@@ -188,7 +188,7 @@ class Solution332_euler_path_recursive_DFS {
   }
 };
 
-void resonstruct_itinerary() {
+void reconstruct_itinerary() {
   Solution_332 s;
   vector<vector<string>> itinerary = {{"JFK", "SFO"},
                                       {"JFK", "ATL"},

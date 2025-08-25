@@ -35,8 +35,8 @@ int knapsack_rec_loop(vector<int> value, vector<int> weight, int W, int n) {
   return max_val;
 }
 
-int knapsack_top_down_util(vector<int> &value, vector<int> &weight, int W,
-                           int n, vector<vector<int>> &dp) {
+int knapsack_bottom_up_util(vector<int> &value, vector<int> &weight, int W,
+                            int n, vector<vector<int>> &dp) {
   if (n == 0 || W == 0) return 0;
 
   if (dp[n][W] != -1) return dp[n][W];
@@ -52,21 +52,21 @@ int knapsack_top_down_util(vector<int> &value, vector<int> &weight, int W,
 
 /*
   DP using Memoization:
-  - Vector has to be initilized first. Notice the size of vector.
+  - Vector has to be initalized first. Notice the size of vector.
   - There are n rows and W columns initialized with invalid value -1.
   - We just store the temporary results.
  */
-int knapsack_top_down(vector<int> value, vector<int> weight, int W, int n) {
+int knapsack_bottom_up(vector<int> value, vector<int> weight, int W, int n) {
   vector<vector<int>> temp(n + 1, std::vector<int>(W + 1, -1));
-  return knapsack_top_down_util(value, weight, W, n, temp);
+  return knapsack_bottom_up_util(value, weight, W, n, temp);
 }
 
 /**
  Key learnings :
-  - Tranforming the recursive version to tabulation is possible but you need to
+  - Transforming the recursive version to tabulation is possible but you need to
     careful on the usage and indices. size of n is the actual size rather index
     of last element.
-  - Since matrix has additonal row/column to fullfil the base condition of
+  - Since matrix has additional row/column to fullfil the base condition of
     recursion therefore, we size of the matrix is [n+1][W+1] and notice that we
     access the relevant weight from n-1 index.
                         w --->
@@ -79,7 +79,7 @@ int knapsack_top_down(vector<int> value, vector<int> weight, int W, int n) {
     12  6   V   4 | 0  1  1  10 11 11 12 13 13 22
 https://youtu.be/8LusJS5-AGo?t=378
 */
-int knapsack_bottom_up(vector<int> value, vector<int> weight, int W, int n) {
+int knapsack_top_down(vector<int> value, vector<int> weight, int W, int n) {
   vector<vector<int>> matrix(n + 1, std::vector<int>(W + 1, 0));
   for (int i = 1; i <= n; i++) {
     for (int w = 1; w <= W; w++) {
@@ -106,7 +106,7 @@ void zero_one_knapsack() {
   CHECK(knapsack_rec(value, weight, capacity, n - 1), 22);
   CHECK(knapsack_rec_loop(value, weight, capacity, n - 1), 22);
   CHECK(knapsack_rec_loop({60, 100, 120}, {{10, 20, 30}}, 50, 3 - 1), 220);
-  CHECK(knapsack_top_down(value, weight, capacity, n - 1), 22);
-  CHECK(knapsack_bottom_up(value, weight, capacity, n), 22);
+  CHECK(knapsack_bottom_up(value, weight, capacity, n - 1), 22);
+  CHECK(knapsack_top_down(value, weight, capacity, n), 22);
   cout << "All 01 knapsack tests passed." << endl;
 }
