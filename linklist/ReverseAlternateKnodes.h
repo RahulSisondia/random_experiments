@@ -17,7 +17,8 @@ struct node* kAltReverse(struct node* head, int k) {
   struct node* prev = NULL;
   int count = 0;
 
-  /*1) reverse first k nodes of the linked list */
+  /*1) reverse first k nodes of the linked list. Count is less than k because
+  it started from 0 */
   while (current != NULL && count < k) {
     next = current->next;
     current->next = prev;
@@ -26,7 +27,7 @@ struct node* kAltReverse(struct node* head, int k) {
     count++;
   }
 
-  /* 2) Now head points to the kth node.  So change next
+  /* 2) Now head points to the kth node that is reversed. So change next
   of head to (k+1)th node*/
   if (head != NULL) head->next = current;
 
@@ -74,7 +75,7 @@ struct ListNode {
   ListNode() : val(0), next(nullptr) {}
   ListNode(int x) : val(x), next(nullptr) {}
   ListNode(int x, ListNode* next) : val(x), next(next) {}
-  }; 
+};
 class Solution {
  public:
   ListNode* reverseKGroup(ListNode* head, int k) {
@@ -120,7 +121,7 @@ class Solution {
     return count;
   }
 };
-}  // namespace 
+} // namespace
 void test_alternate_kth_node() {
   /* Start with the empty list */
   struct node* head = NULL;

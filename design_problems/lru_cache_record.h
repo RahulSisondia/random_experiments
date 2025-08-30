@@ -4,28 +4,19 @@
 /*
  Design and Implement the LRU in-memory cache for a text file search.
  Text file has number of lines(millions of the entries). Each line represent
- First Name, Last Name, Age. seperated by the white spaces.
-  - Deaign and implement an algorithm to search the data using first name and
- return all matched records.
+ First Name, Last Name, Age. separated by the white spaces.
+ - Design and implement an algorithm to search the data using first name and
+    return all matched records.
  - Design should provide a way to keep most recent searched in cache.
  - Cache should be auto updated with the most recent searched and should also
- remove the least recent searches.
+   remove the least recent searches.
  - Cache size should be limited.
- - Provide the funtionaity to write/read cache to the file.
+ - Provide the functionality to write/read cache to the file.
  - program should be initialized from the cache file. (if the cache file does
- not exists initialize the empty cache)
-*/
-/*
- - Ideas for possible improvements
-   - Input arg validation
-   - A better implementation would have been using LFU + LRU. I realized that
- after I implemented the following solution.
-   - It has a major assumption that last accessed record is evicted from the
- cache in case if it is full.
-*/
-/*
+   not exists initialize the empty cache)
+
 First name is the key.  There would be multiple values that match the key. We
-need to resturn all of them.
+need to return all of them.
 - Flush the Cache Entries
 - Read and Write from the file.
   - File could be
@@ -94,8 +85,11 @@ LRU_cache::LRU_cache(int capacity)
 
 /*
    (1) Assuming there could be duplicate entries with the same last_name and
-   age. Since it is not spcified in the problem stmt. (2) Assuming inputs are
+   age. Since it is not specified in the problem stmt.
+   (2) Assuming inputs are
    valid. Will add validations if time permits
+   Learnings : Notice, we use std:end() to extract the last element
+   of list of list.
  */
 void LRU_cache::put(const std::string first_name, const std::string last_name,
                     const int age) {

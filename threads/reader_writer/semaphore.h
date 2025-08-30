@@ -29,12 +29,12 @@ class semaphore {
 void semaphore::wait() {
   // This locks the mutex until it is destroyed at method exit.
   std::unique_lock<std::mutex> lck(m_mux);
-  // Check the mutex value, and wait if need be.
-  if (--m_value < 0) {
-    // Make us wait.  When we wait, the mutex is unlocked until the
-    // wait ends.
-    m_waitcond.wait(lck);
-  }
+  // When we wait, the mutex is unlocked until the wait ends.
+  // This implementation follows the model where the counter
+  // cannot go negative. The following wait ensures the same.
+  // It is translated as  while (!pred()) { wait(lock); }
+  m_waitcond.wait(lck, [&]() { return m_value > 0; });
+  --m_value;
 }
 
 /* Semaphore up operation. */
@@ -42,6 +42,7 @@ void semaphore::signal() {
   // This locks the mutex until it is destroyed at method exit.
   std::unique_lock<std::mutex> lck(m_mux);
   // Start a waiting thread if required.
-  if (++m_value <= 0) m_waitcond.notify_one();
+  ++m_value;
+  m_waitcond.notify_one();
 }
 #endif

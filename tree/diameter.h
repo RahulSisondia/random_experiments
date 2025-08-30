@@ -6,7 +6,17 @@ struct st {
   int diameter = 0;
 };
 /*
+Diameter is either of left diameter, right diameter, or left height,
+right height +1. That means we would beed to calculate the height and
+diameters of sub trees. That would be O(n^2) solution, as you can see
+in the following
+https://www.geeksforgeeks.org/dsa/diameter-of-a-binary-tree-in-on-a-new-method/
+Instead, we could store the height of the subtrees while traversing them
+as following :
 https://www.techiedelight.com/find-diameter-of-a-binary-tree/
+
+Similary, had we asked if the tree is height balanced then we would simply
+store a bool flag instead of the diameter in the return value.
 */
 st diameter(shared_ptr<Node> root) {
   if (root == nullptr) return {};

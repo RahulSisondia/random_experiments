@@ -21,14 +21,22 @@ This function has void return type.
 readContentFromFile: Given a file path, return its content in string format.
 */
 class FileSystem {
+  /*
+   Idea is to represent each file or directory through FSnode. If it will
+   be a directory then the map would contain pointer to files and folders in
+   it.
+  */
   struct FSnode {
     string name;
     bool isDir = true;
     string content;
-    unordered_map<string, shared_ptr<FSnode>> dir;
+    unordered_map<string, shared_ptr<FSnode>> dir_or_file;
   };
   shared_ptr<FSnode> root;
-
+  /*
+   Split the path and store the subdir/files names in the array.
+   That is "/a/b/c.txt" is translated into {"a","b", "c.txt"}
+  */
   vector<string> parse(const string& path) {
     vector<string> ret;
     int i = 1, j = 1;
@@ -40,13 +48,17 @@ class FileSystem {
     }
     return ret;
   }
-
+  /* Expect the path in the array of string. Array is arranged in the
+  lexicographical order */
   shared_ptr<FSnode> seek(const vector<string>& paths, bool create = false) {
     auto node = root;
     for (int i = 0; i < paths.size(); i++) {
-      if (!node->dir.count(paths[i]) && create)
-        node->dir[paths[i]] = make_shared<FSnode>();
-      node = node->dir[paths[i]];
+      if (!node->dir_or_file.count(paths[i]) && create)
+        node->dir_or_file[paths[i]] = make_shared<FSnode>();
+      auto node_itr = node->dir_or_file.find(paths[i]);
+      if (node_itr != node->dir_or_file.end()) {
+        node = node_itr->second;
+      }
     }
     return node;
   }
@@ -61,7 +73,8 @@ class FileSystem {
     if (!node) return ret;
     if (!node->isDir) return {node->name};
 
-    for (auto& p : node->dir) ret.push_back(p.first);
+    for (auto &p : node->dir_or_file)
+      ret.push_back(p.first);
     sort(begin(ret), end(ret));
     return ret;
   }
@@ -86,69 +99,23 @@ class FileSystem {
   }
 };
 
-class FileSystem_ptr {
- public:
-  struct fileNode {
-    unordered_map<string, fileNode *> next;
-    bool isFile;
-    string content;
-    fileNode() : isFile(false), content("") {}
-  };
-
-  fileNode *root;
-
-  FileSystem_ptr() { root = new fileNode(); }
-
-  fileNode *goToPathFolder(string path, bool create = false) {
-    fileNode *cur = root;
-    stringstream s(path);
-    string folder;
-    while (getline(s, folder, '/')) {
-      if (folder.size()) {
-        if (cur->next[folder] == NULL && create)
-          cur->next[folder] = new fileNode();
-        cur = cur->next[folder];
-      }
-    }
-    return cur;
-  }
-
-  vector<string> ls(string path) {
-    fileNode *cur = goToPathFolder(path);
-
-    if (cur && cur->isFile) {
-      return {path.substr(path.find_last_of('/') + 1)};
-    }
-
-    vector<string> res;
-    for (auto &p : cur->next) {
-       res.push_back(p.first);
-    }
-    sort(res.begin(), res.end());
-    return res;
-  }
-
-  void mkdir(string path) { goToPathFolder(path); }
-
-  void addContentToFile(string filePath, string content) {
-    fileNode *cur = goToPathFolder(filePath);
-    cur->content += content;
-    cur->isFile = true;
-  }
-
-  string readContentFromFile(string filePath) {
-    fileNode *cur = goToPathFolder(filePath);
-    return cur->content;
-  }
-};
-
 void test_file_system_588() {
-  FileSystem_ptr fs_ptr;
-  // CHECK(fs_ptr.ls("/a"), {});
-  // fs_ptr.mkdir("/a");
-  // CHECK(fs_ptr.ls("/a"), {});
-  // fs_ptr.addContentToFile("/a/f1", "Greetings from File1");
-  // CHECK(fs_ptr.ls("/"), {"a"});
-  // CHECK(fs_ptr.ls("/a"), {"f1"});
+  {
+    FileSystem fs;
+    fs.addContentToFile("/a.txt", "Hello to A file");
+    fs.addContentToFile("/b.txt", "Hello to B file");
+    CHECK(fs.ls("/"), {"a.txt", "b.txt"});
+    assert(!fs.readContentFromFile("/a.txt").compare("Hello to A file"));
+    assert(!fs.readContentFromFile("/b.txt").compare("Hello to B file"));
+  }
+  {
+    FileSystem fs;
+    CHECK(fs.ls("/a"), {});
+    fs.mkdir("/a");
+    CHECK(fs.ls("/a"), {});
+    fs.addContentToFile("/a/f1", "Greetings from File1");
+    CHECK(fs.ls("/"), {"a"});
+    CHECK(fs.ls("/a"), {"f1"});
+  }
   PRINT_MSG;
 }

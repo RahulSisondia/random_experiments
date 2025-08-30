@@ -2,6 +2,8 @@
 
 #include "../my_util.h"
 
+/* GCC implements the priority_queue using the standard heap APIs
+discussed below. In other words, it is like a wrapper. */
 int main() {
   int myints[] = {10, 20, 30, 5, 15};
   std::vector<int> v(myints, myints + 5);

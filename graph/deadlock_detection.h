@@ -27,7 +27,7 @@ vector<Vertex> build_graph(vector<Vertex> v) {
   https://stackoverflow.com/questions/46506077/how-to-detect-cycles-in-a-directed-graph-using-the-iterative-version-of-dfs
   One option is to push each node twice to the stack along the information if
   you're entering or exiting it. When you pop a node from stack you check if
-  you're entering or exiting. In case of enter color it gray, push it to stack
+  you're entering or exiting. In case of enter color it grey, push it to stack
   again and advance to neighbors. In case of exit just color it black.
 */
 

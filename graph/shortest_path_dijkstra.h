@@ -2,12 +2,12 @@
 /*
  https://www.techiedelight.com/single-source-shortest-paths-dijkstras-algorithm/
  This implementation is similar to the above except some minor diffs:
-  - Represented Adjancency list differently.
+  - Represented Adjacency list differently.
   - Not using the distanc[] vector and relaxation, instead emulating the BFS and
     relying on BFS
  - (https://youtu.be/sD0lLYlGCJE)
 */
-using P = pair<int, int>;  // Conecting Vertex, Weight
+using P = pair<int, int>; // Connecting Vertex, Weight
 struct Edge {
   int parent;  // source
   int node;    // dest
@@ -25,10 +25,10 @@ map<int, P> shortest_path(std::vector<vector<P>> graph, int source) {
     auto edge = min_heap.top();
     min_heap.pop();
     // if we need to find path specific to a target then check and break here
-    
-    // It is important to add this check. Since we are pulling the node from PQ. 
+
+    // It is important to add this check. Since we are pulling the node from PQ.
     if (visited.find(edge.node) != visited.end()) continue;
-    
+
     // cout << edge.node << endl;
     for (auto nghbr : graph[edge.node]) {
       if (visited.find(nghbr.first) == visited.end()) {

@@ -2,8 +2,8 @@
 
 #include "../my_util.h"
 /*
- Learings : Avoid using iterators in the itvw propblems.
- May get caught up in the syntex issues and difficult to
+ Learnings : Avoid using iterators in the itvw problems.
+ May get caught up in the syntax issues and difficult to
  get pointer right.
  Better have used two variable and accessed the vector v[inner][outer]
 */

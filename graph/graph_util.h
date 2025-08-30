@@ -23,7 +23,7 @@ void print_graph(const vector<Vertex>& G) {
 
 template <typename type>
 class Node {
-  type key;
+  type data;
 };
 
 // @TODO : Extend and make use of the class to track the vertex and edges.

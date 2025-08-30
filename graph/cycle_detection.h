@@ -33,7 +33,7 @@ Output: [0]
 
 /*
  We learn to  print the path and detect cycle using topological sort.
- I implemented both.  Refer Alien dictionary code, there I choose visisted
+ I implemented both.  Refer Alien dictionary code, there I choose visited
  structure as map. It is simplified further.
 */
 
@@ -90,12 +90,12 @@ class Solution_210 {
   }
   /*
    Solution#2 is iterative DFS approach. It is using indegree approach. It is
-   relatively simple. Just do the usual topplogical sort. If the size of the
+   relatively simple. Just do the usual topological sort. If the size of the
    result set is not as expected that means there were a cycle.
-   Note#1 - We don't have to have seperate visited structure.
+   Note#1 - We don't have to have separate visited structure.
    Note#2 - We could use BFS as well. Why does the queue work? Because we are
    adding only children who have no incoming edge. What if we would need to
-   detect the nodes where the cycyle discovered? In that I would have preferred
+   detect the nodes where the cycle discovered? In that, I would have preferred
    the iterative approach in the deadlock_detection.h
   */
   vector<int> findOrder_indegree_dfs(int numCourses,

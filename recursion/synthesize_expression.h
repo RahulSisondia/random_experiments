@@ -25,7 +25,8 @@ bool synthesize_expression(const vector<int>& v, int target) {
 }
 /*
  you are given two operators + and * and a target value.
- you have to evaluate if the the given numbers can form the target value.
+ you have to evaluate if the the given numbers can form the target value using
+ the either of the two operators or appending the two digits.
 */
 void test_synthesize_expression() {
   // 1+2*3

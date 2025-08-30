@@ -65,19 +65,19 @@ void test_find_negative_number_in_window() {
 
 /*
 https://practice.geeksforgeeks.org/problems/count-occurences-of-anagrams5839/1
-        Input: txt = forxxorfxdofr , pat = for Output: 3
+        Input: txt = forxxorfxdofr , pattern = for Output: 3
 Explanation: for, orf and ofr appears in the txt, hence answer is 3.
 */
 vector<string> find_all_anagrams(const string str, const string pattern) {
   unordered_map<char, int> fm;  // frequency map
   int left = 0, right = 0;
   vector<string> result;
-  // Calculate the frquencies in the pattern.
+  // Calculate the frequencies in the pattern.
   for (auto ch : pattern) {
     ++fm[ch];
   }
   // global counter. It keeps track of the window. If all
-  // chars are included then its count befomes 0
+  // chars are included then its count becomes 0
   int gc = fm.size();
   int k = pattern.size();  // Window Size
   while (right < str.size()) {
@@ -96,7 +96,7 @@ vector<string> find_all_anagrams(const string str, const string pattern) {
       ch = str[left];
       if (fm.find(ch) != fm.end()) {
         ++fm[ch];
-        // Goatchas : Don't forget the condition check.  Remember we need to
+        // Gotchas : Don't forget the condition check.  Remember we need to
         // increase the count only when char is added first time in the map.
         if (fm[ch] == 1) ++gc;
       }
@@ -117,9 +117,9 @@ vector<string> find_all_anagrams_better(const string str,
     ++fm[ch];
   }
 
-  // global counter. It keeps track of the window. If all
-  // chars are included then its count befomes 0.
-  // We need to keep track of elcment when they are inserted first in the fm.
+  // Global Counter. It keeps track of the window. If all
+  // chars are included then its count becomes 0.
+  // We need to keep track of element when they are inserted first in the fm.
   // Therefore, it is OK to check the size of the map.
   int gc = fm.size();
 
@@ -138,7 +138,7 @@ vector<string> find_all_anagrams_better(const string str,
       ch = str[left];
       if (fm.find(ch) != fm.end()) {
         ++fm[ch];
-        // Goatchas : Don't forget he condition check.  Remember we need to
+        // Gotchas : Don't forget he condition check.  Remember we need to
         // increase the count only when char is added first time in the map.
         if (fm[ch] == 1) ++gc;
       }
@@ -299,20 +299,18 @@ int longest_unique_k_chars(const string& str, int k) {
   int left = 0, right = 0;
   while (right < str.size()) {
     ++mp[str[right]];
-    if (mp.size() < k) {
-      right++;
-    } else if (mp.size() == k) {
+    if (mp.size() == k) {
       max_len = max(max_len, (right - left + 1));
-      right++;
-    } else {
-      while (mp.size() > k) {
-        char ch = str[left];
-        --mp[ch];
-        if (mp[ch] == 0) mp.erase(ch);
-        left++;
-      }
-      right++;
     }
+
+    while (mp.size() > k) {
+      char ch = str[left];
+      --mp[ch];
+      if (mp[ch] == 0)
+        mp.erase(ch);
+      left++;
+    }
+    right++;
   }
   return max_len;
 }
@@ -536,15 +534,15 @@ Explanation: Substrings starting at index 0 and 9 are "barfoo" and "foobar"
 respectively. The output order does not matter, returning [9,0] is fine too.
 */
 /*
- Interesting problem.  The first intution is to solve by recursion.
- In fact here is the recursive solution :
+ Interesting problem.  The first intuition is to solve by recursion.
+ In fact, here is the recursive solution :
  https://duncan-mcardle.medium.com/leetcode-problem-30-substring-with-concatenation-of-all-words-javascript-2030111694e5
 
  We need to observe carefully the inputs. If they are in the form of substr
  then chances are sliding window technique will apply.
- It also gives different perspective since we we don't use the left pointer
- here. Instead substr are formed using the dictionay words. We also need another
- map the keep track if the words are visisited or not.
+ It also gives different perspective since we don't use the left pointer
+ here. Instead substr are formed using the dictionary words. We also need
+ another map the keep track if the words are visited or not.
 
   O(N * M * Len)O(N∗M∗Len)
 */

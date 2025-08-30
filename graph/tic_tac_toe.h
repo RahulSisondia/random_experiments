@@ -17,10 +17,10 @@ move. Follow up: Could you do better than O(n2) per move() operation?
   Lessons :
   1. Whenever we see a board problem. Think of applying the Graph or DP.
   2. The processing is bit different that usual BFS but idea is sane.
-  On very move we move in the eigth direction. If we find a match then we
-  continue in the same direction in the hope that next value coulld also be the
+  On every move we check in the eight direction. If we find a match then we
+  continue in the same direction in the hope that next value could also be the
   same.
-  3. This agorith is slow though. It gives TLE in leetcode.
+  3. This algorithm is slow though. It gives TLE in leetcode.
 */
 class TicTacToe_bfs {
  public:
@@ -54,7 +54,7 @@ class TicTacToe_bfs {
     int r = 0;
     int c = 0;
     for (auto dir : dirs) {
-      int count = 1;  // Procecced the current node
+      int count = 1; // Processed the current node
       r = row + dir[0];
       c = col + dir[1];
       while (is_valid(r, c, player)) {
@@ -93,9 +93,8 @@ class TicTacToe_bfs {
 Lessons:
 1.  Actually solution is much simpler that it seems to be at first.
   We just need to imagine that for each player we just need to keep track of the
-  sum for each row, colum and diagnols.
-2. how to keep track of right diagnoal?
-  (size - col - 1 == row)
+  sum for each row, column and diagonals.
+2. How to keep track of right diagonals? (size - col - 1 == row)
 */
 class TicTacToe {
  public:

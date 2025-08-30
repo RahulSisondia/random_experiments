@@ -1,0 +1,40 @@
+{
+  "configurations": [
+    {
+      "name": "Debug test",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/Users/rsisondi/work/projects/build/bin/test",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "/Users/rsisondi/work/projects/build",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "lldb"
+    },
+    {
+      "name": "Debug linkllist",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/Users/rsisondi/work/projects/build/bin/linklist",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "/Users/rsisondi/work/projects/build",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "lldb"
+    },
+    {
+      "name": "Debug design problems",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/Users/rsisondi/work/projects/build/bin/design",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "/Users/rsisondi/work/projects/build",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "lldb"
+    }
+  ]
+}
