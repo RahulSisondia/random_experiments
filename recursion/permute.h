@@ -4,6 +4,13 @@
 
 template <typename t>
 class Permute {
+  /*
+   We are passing the args by reference and we undo choices
+   made before, another advantage of passing the visited set
+   is that we avoid handle duplicate chars in the input.
+   This approach is based on the DFS and preferred way to
+   do the permutation.
+   */
   void permute_util(const vector<t> &A, vector<bool> &visited,
                     vector<t> &current, vector<vector<t>> &result, int level) {
     if (level == A.size()) {
@@ -66,7 +73,8 @@ class Permute_IB {
   }
 };
 /* This is another simple version to use without visiting flag. We keep on
- * reducing the input*/
+  reducing the input. Also notice that we pass the arguments by value
+ */
 void RecPermute(string soFar, string rest, vector<string> &result) {
   if (rest.empty()) {
     result.push_back(soFar);

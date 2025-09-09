@@ -150,7 +150,7 @@ bool is_palindrome(string X) {
 }
 
 int min_palindromic_partitioning_rec(string str, int i, int j) {
-  // Passing both index to check palindrome is much easier than calculting the
+  // Passing both index to check palindrome is much easier than calculating the
   // inclusive length
   // if (i == j || is_palindrome(str.substr(i, j - i + 1)) == true) return 0;
 

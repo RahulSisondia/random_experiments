@@ -5,16 +5,16 @@ int peak_element(vector<int> v) {
   int low = 0;
   int high = v.size() - 1;
   /*
-    Notice the condition check it is <= because of we have high is the valid
+    Notice the condition check it is <= because of we have high as the valid
     index.
   */
   while (low <= high) {
     int mid = low + (high - low) / 2;
     /*
-      First check for the peak element where two neigbhors exist.
+      First check for the peak element where two neighbors exist.
       In case we found where the middle element is greater than its neighbors
       then return that element. Otherwise, chances to find the peak element are
-      in the side whervever the neighbor is greater than the middle element.
+      in the side wherever the neighbor is greater than the middle element.
     */
     if (mid > 0 && mid < v.size() - 1) {
       if (v[mid] > v[mid - 1] && v[mid] > v[mid + 1]) {
@@ -72,6 +72,11 @@ the right subarray.
 In this way, we keep on reducing the search space till we eventually reach a
 state where only one element is remaining in the search space. This single
 element is the peak element.
+Note - There is another problem
+https://leetcode.com/problems/longest-mountain-in-array/solutions/1494992/easy-to-understand-c-on-time-o1-space-be-tdty/
+That looks like similar pattern but it is solved by the two pointer approach
+or
+sliding window. 
 */
 class Solution_162 {
  public:

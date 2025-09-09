@@ -35,6 +35,18 @@
       "environment": [],
       "externalConsole": false,
       "MIMode": "lldb"
+    },
+    {
+      "name": "hashing",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/Users/rsisondi/work/projects/build/bin/hashing",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "/Users/rsisondi/work/projects/build",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "lldb"
     }
   ]
 }

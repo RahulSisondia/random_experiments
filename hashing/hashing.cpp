@@ -6,9 +6,11 @@
 
 #include "EPI13.7_Sliding_Window.h"
 #include "lru_cache.h"
+#include "snapshot_array.h"
 
 int main() {
   test_sliding_window();
+  test_snapshot_array();
   test_lru_cache_146();
   return 0;
 }

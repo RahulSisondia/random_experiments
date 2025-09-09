@@ -11,7 +11,7 @@ IF(WIN32_CLANG OR NOT WIN32)
 	string(APPEND CMAKE_EXE_LINKER_FLAGS "-fsanitize=address")
 	# Set undefined behavior sanitizers
 	# https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html
-	add_compile_options(-fsanitize=undefined,float-divide-by-zero,unsigned-integer-overflow,implicit-conversion,local-bounds,nullability )
+	add_compile_options(-fsanitize=undefined,float-divide-by-zero,unsigned-integer-overflow,implicit-conversion,local-bounds,nullability)
 	add_compile_options(-fno-sanitize-recover=null -fsanitize-trap=alignment -fno-omit-frame-pointer)
 ENDIF()
 # Generate the output binaries at one place in the bin directory
